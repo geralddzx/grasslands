@@ -6,17 +6,21 @@ function Water:init()
     for y = 1, MAP_SIZE do
         table.insert(self.tiles, {})
         for x = 1, MAP_SIZE do
-            self.tiles[y][x] = WATER[math.random(#WATER)]
+            if x <= 5 or x > MAP_SIZE - 5 or y <= 5 or y > MAP_SIZE - 5 then
+                self.tiles[y][x] = WATER[math.random(#WATER)]
+            else
+                self.tiles[y][x] = MAP_EMPTY
+            end
         end
     end
 end
 
-function Water:render()
+function Water:render(renderTile)
     for y = 1, MAP_SIZE do
         for x = 1, MAP_SIZE do
-            love.graphics.draw(gTextures['grassland_tiles'], 
+            renderTile(gTextures['grassland_tiles'], 
                 gFrames['grassland_tiles'][self.tiles[y][x]], 
-                Cartesian(x - 1, y - 1))
+                x - 1, y - 1)
         end
     end
 end

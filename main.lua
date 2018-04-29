@@ -12,7 +12,7 @@ function love.load()
     love.graphics.setDefaultFilter('linear', 'linear')
 
     push:setupScreen(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, WINDOW_WIDTH, WINDOW_HEIGHT, {
-        fullscreen = true,
+        fullscreen = false,
         vsync = true,
         resizable = true
     })

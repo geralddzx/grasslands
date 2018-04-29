@@ -20,7 +20,6 @@ function PlayState:render()
 
     -- love.graphics.translate(-MAP_SIZE * 32, -MAP_SIZE * 16)
 
-    self.water:render()
 
     local tiles = {}
 
@@ -37,8 +36,10 @@ function PlayState:render()
             y = y
         })
     end
-
+    
+    self.water:render(renderTile)
     self.ground:render(renderTile)
+    
 
     for k, tileRow in pairs(tiles) do
         for k, tile in pairs(tileRow) do
