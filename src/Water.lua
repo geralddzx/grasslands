@@ -6,7 +6,7 @@ function Water:init()
     for y = 1, MAP_SIZE do
         table.insert(self.tiles, {})
         for x = 1, MAP_SIZE do
-            if x <= 5 or x > MAP_SIZE - 5 or y <= 5 or y > MAP_SIZE - 5 then
+            if x < 6 or x > MAP_SIZE - 4 or y < 6 or y > MAP_SIZE - 4 then
                 self.tiles[y][x] = WATER[math.random(#WATER)]
             else
                 self.tiles[y][x] = MAP_EMPTY

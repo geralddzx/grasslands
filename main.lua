@@ -3,6 +3,8 @@ require 'src/Dependencies'
 -- all assets obtained from opengameart.org
 
 function love.load()
+    if arg[#arg] == "-debug" then require("mobdebug").start() end
+    
     -- http://nova-fusion.com/2012/09/20/custom-cursors-in-love2d/
     love.mouse.setVisible(false)
     -- love.mouse.setGrabbed(true)
@@ -26,6 +28,8 @@ function love.load()
     gSounds['music']:play()
 
     love.keyboard.keysPressed = {}
+    love.mouse.keysPressed = {}
+    love.mouse.keysReleased = {}
 end
 
 function love.resize(w, h)
@@ -45,6 +49,8 @@ function love.update(dt)
     gStateMachine:update(dt)
 
     love.keyboard.keysPressed = {}
+    love.mouse.keysPressed = {}
+    love.mouse.keysReleased = {}
 end
 
 function love.draw()
@@ -58,4 +64,15 @@ function love.draw()
     love.graphics.draw(gCursors['point'], 
         love.mouse.getX() - gCursors['point']:getWidth() / 2, 
         love.mouse.getY() - gCursors['point']:getHeight() / 2)
+end
+
+function love.mousepressed(x, y, key)
+    love.mouse.keysPressed[key] = {
+        x / love.graphics.getWidth() * VIRTUAL_WIDTH, 
+        y / love.graphics.getHeight() * VIRTUAL_HEIGHT
+    }
+end
+
+function love.mousereleased(x, y, key)
+    love.mouse.keysReleased[key] = true 
 end

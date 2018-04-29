@@ -5,18 +5,26 @@ Timer = require 'lib/knife.timer'
 
 require 'src/StateMachine'
 require 'src/Util'
+require 'src/Animation'
 
 require 'src/constants'
 
 require 'src/Ground'
 require 'src/Water'
 
-require 'src/states/BaseState'
+require 'src/Entity'
+require 'src/Player'
 
+require 'src/states/BaseState'
 require 'src/states/game/PlayState'
+require 'src/states/player/PlayerIdleState'
+require 'src/states/player/PlayerRunState'
 
 gTextures = {
     ['grassland_tiles'] = love.graphics.newImage('graphics/map/grassland_tiles.png'),
+    ['clothes'] = love.graphics.newImage('graphics/player/clothes.png'),
+    ['male_head1'] = love.graphics.newImage('graphics/player/male_head1.png'),
+    ['dagger'] = love.graphics.newImage('graphics/player/dagger.png'),
 }
 
 gCursors = {
@@ -27,6 +35,9 @@ gCursors = {
 
 gFrames = {
     ['grassland_tiles'] = GenerateQuads(gTextures['grassland_tiles'], 64, 32),
+    ['clothes'] = Generate2DQuads(gTextures['clothes'], 128, 128),
+    ['male_head1'] = Generate2DQuads(gTextures['male_head1'], 128, 128),
+    ['dagger'] = Generate2DQuads(gTextures['dagger'], 128, 128),
 }
 
 gSounds = {
