@@ -4,7 +4,7 @@ require 'src/Dependencies'
 
 function love.load()
     if arg[#arg] == "-debug" then require("mobdebug").start() end
-    
+
     -- http://nova-fusion.com/2012/09/20/custom-cursors-in-love2d/
     love.mouse.setVisible(false)
     -- love.mouse.setGrabbed(true)
@@ -71,6 +71,7 @@ function love.mousepressed(x, y, key)
         x / love.graphics.getWidth() * VIRTUAL_WIDTH, 
         y / love.graphics.getHeight() * VIRTUAL_HEIGHT
     }
+    print_r(gFrames['clothes'][2][1])
 end
 
 function love.mousereleased(x, y, key)

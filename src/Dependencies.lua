@@ -11,6 +11,7 @@ require 'src/constants'
 
 require 'src/Ground'
 require 'src/Water'
+require 'src/Tree'
 
 require 'src/Entity'
 require 'src/Player'
@@ -35,6 +36,8 @@ gCursors = {
 
 gFrames = {
     ['grassland_tiles'] = GenerateQuads(gTextures['grassland_tiles'], 64, 32),
+    ['bushes'] = Slice(GenerateQuads(gTextures['grassland_tiles'], 64, 64), 81, 96),
+    ['trees'] = GenerateTreeQuads(gTextures['grassland_tiles']),
     ['clothes'] = Generate2DQuads(gTextures['clothes'], 128, 128),
     ['male_head1'] = Generate2DQuads(gTextures['male_head1'], 128, 128),
     ['dagger'] = Generate2DQuads(gTextures['dagger'], 128, 128),

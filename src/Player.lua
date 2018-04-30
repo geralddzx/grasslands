@@ -9,6 +9,9 @@ function Player:init()
     self.width = 1
     self.height = 1
 
+    self.mass = 1
+    self.radius = 0.25
+
     self.body = 'clothes'
     self.head = 'male_head1'
 
@@ -20,12 +23,11 @@ function Player:init()
 end
 
 function Player:render(renderBody)
-    print(self.direction)
     renderBody(gTextures[self.body],
         gFrames[self.body][self.direction][self.animation:getCurrentFrame()], 
-        self.x, self.y, -3.5, -2.5)
+        self.x, self.y, -4, -2)
 
     renderBody(gTextures[self.head],
         gFrames[self.head][self.direction][self.animation:getCurrentFrame()], 
-        self.x, self.y, -3.5, -2.5)
+        self.x, self.y, -4, -2)
 end

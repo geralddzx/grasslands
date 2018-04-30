@@ -35,7 +35,7 @@ function PlayState:render()
         tiles[i] = {}
     end
 
-    local renderTile = function(texture, frame, x , y)
+    local renderTile = function(texture, frame, x, y)
         table.insert(tiles[math.floor(x + y) + 1], {
             texture = texture,
             frame = frame, 
@@ -83,12 +83,50 @@ function PlayState:render()
         })
     end
 
-    self.player:render(renderBody)
+    self.ground:renderBushes(renderBody)
 
     for k, bodyGroup in pairs(bodies) do
         table.sort(bodyGroup, function(farther, closer)
-            return farther.x + farther.y < closer.x + closer.y
+            if farther.x + farther.y < closer.x + closer.y then
+                return true
+            elseif farther.x + farther.y == closer.x + closer.y then
+                return farther.x % 2 < closer.x % 2
+            else
+                return false
+            end
         end)
+
+        for k, body in pairs(bodyGroup) do
+            love.graphics.draw(body.texture, body.frame, 
+                Cartesian(body.x + body.offsetX, body.y + body.offsetY))
+        end
+    end
+
+    bodies = {}
+
+    for i = 1, 2 * MAP_SIZE do
+        bodies[i] = {}
+    end
+
+    self.ground:renderTrees(renderBody)
+    self.player:render(renderBody)
+    
+    for k, bodyGroup in pairs(bodies) do
+        table.sort(bodyGroup, function(farther, closer)
+            if farther.x + farther.y < closer.x + closer.y then
+                return true
+            elseif farther.x + farther.y == closer.x + closer.y then
+                return farther.x % 2 < closer.x % 2
+            else
+                return false
+            end
+        end)
+
+        -- for k, body in pairs(bodyGroup) do
+        --     love.graphics.setColor(255, 255, 255)
+        --     x, y = Cartesian(body.x, body.y)
+        --     love.graphics.circle("fill", x, y , 5, 5)
+        -- end
 
         for k, body in pairs(bodyGroup) do
             love.graphics.draw(body.texture, body.frame, 
@@ -118,7 +156,7 @@ function PlayState:checkCollisions()
 
     for i = 1, MAP_SIZE do
         for j = 1, MAP_SIZE do
-            if not GRASS[self.ground.tiles[i][j]] and tiles[i][j] then
+            if not GRASS[self.ground.tiles[i][j].id] and tiles[i][j] then
                 for k, entity in pairs(tiles[i][j]) do
                     local dx, dy = entity.x - j + 0.5, entity.y - i + 0.5
                     local distance = Magnitude(dx, dy)
@@ -129,6 +167,41 @@ function PlayState:checkCollisions()
                     end
                 end
             end
+
+            if self.ground.tiles[i][j].tree then
+                if tiles[i][j] then
+                    for k, entity in pairs(tiles[i][j]) do
+                        self:processCollision(entity, self.ground.tiles[i][j].tree)
+                    end
+                end
+            end
         end
+    end
+end
+
+function PlayState:processCollision(a, b)
+    local x, y = b.x - a.x, b.y - a.y
+    local touchDistance = a.radius + b.radius
+    local distance = Magnitude(x, y)
+
+    if distance < touchDistance then
+        local pushDistance = touchDistance - distance
+        local pushScale = pushDistance / distance
+        local dx, dy = pushScale * x, pushScale * y
+
+        local totalMass = a.mass + b.mass
+        local aPush = b.mass / totalMass
+        local bPush = a.mass / totalMass
+
+        if aPush ~= aPush then
+            aPush = 1
+        end
+
+        if bPush ~= bPush then
+            bPush = 1
+        end
+
+        b.x, b.y = b.x + bPush * dx, b.y + bPush * dy
+        a.x, a.y = a.x - aPush * dx, a.y - aPush * dy
     end
 end
