@@ -1,15 +1,16 @@
 Monster = Class{__includes = Entity}
 
-function Monster:init(x, y)
+function Monster:init(x, y, def)
     self.x = x
     self.y = y
 
-    local def = MONSTER_DEFS[math.random(#MONSTER_DEFS)]
     self.states = def.states
     
     self.texture = def.texture
 
     self.radius = def.radius
+
+    self.rate = def.rate
 
     self.offsetX = def.offsetX
     self.offsetY = def.offsetY

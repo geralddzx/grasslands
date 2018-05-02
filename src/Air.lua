@@ -78,8 +78,9 @@ function Air:generateMonsters()
     for y = 1, MAP_SIZE do
         for x = 1, MAP_SIZE do
             if GRASS[self.ground.tiles[y][x].id] then
-                if math.random() < 0.01 then
-                    local monster = Monster(x - 0.5, y - 0.5)
+                local def = MONSTER_DEFS[math.random(#MONSTER_DEFS)]
+                if (math.random() < 0.1 / def.level ^ 1) then
+                    local monster = Monster(x - 0.5, y - 0.5, def)
                     table.insert(self.objects, monster)
 
                     monster.stateMachine = StateMachine {
