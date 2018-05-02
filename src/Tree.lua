@@ -2,7 +2,7 @@ Tree = Class{}
 
 function Tree:init(x, y)
     local frame = gFrames['trees'][math.random(#gFrames['trees'])]
-    self.quad = frame.quad
+    self.frame = frame.quad
     self.width = 0.5
     self.height = 0.5
     self.offsetX = frame.offsetX
@@ -13,7 +13,9 @@ function Tree:init(x, y)
     self.radius = 0.25
 end
 
-function Tree:render(renderBody)
-    renderBody(gTextures['grassland_tiles'],
-        self.quad, self.x, self.y, self.offsetX, self.offsetY)
+function Tree:graphics()
+    return {{gTextures['grassland_tiles'], self.frame}}
+end
+
+function Tree:update(dt)
 end

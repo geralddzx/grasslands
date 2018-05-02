@@ -8,6 +8,6 @@ end
 
 function PlayerIdleState:update(dt)
     if love.mouse.isDown(1) then
-        self.player:changeState('run')
+        self.player:changeState('move')
     end
 end

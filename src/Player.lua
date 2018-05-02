@@ -1,8 +1,8 @@
 Player = Class{__includes = Entity}
 
-function Player:init()
-    self.x = MAP_SIZE / 2
-    self.y = MAP_SIZE / 2
+function Player:init(x, y)
+    self.x = x
+    self.y = y
 
     self.direction = 1
 
@@ -15,19 +15,18 @@ function Player:init()
     self.body = 'clothes'
     self.head = 'male_head1'
 
-    self.stateMachine = StateMachine {
-        ['idle'] = function() return PlayerIdleState(self) end,
-        ['run'] = function() return PlayerRunState(self) end,
-    }
-    self:changeState('idle')
+    self.offsetX = -4
+    self.offsetY = -2
 end
 
-function Player:render(renderBody)
-    renderBody(gTextures[self.body],
-        gFrames[self.body][self.direction][self.animation:getCurrentFrame()], 
-        self.x, self.y, -4, -2)
-
-    renderBody(gTextures[self.head],
-        gFrames[self.head][self.direction][self.animation:getCurrentFrame()], 
-        self.x, self.y, -4, -2)
+function Player:graphics()
+    return {
+        {
+            gTextures[self.body], 
+            gFrames[self.body][self.direction][self.animation:getCurrentFrame()]
+        }, {
+            gTextures[self.head],
+            gFrames[self.head][self.direction][self.animation:getCurrentFrame()]
+        }
+    }
 end

@@ -50,41 +50,20 @@ function Ground:init()
                 elseif math.random() < 0.2 then
                     tile.bush = self.tiles[y - 1][x].bush
                 end
-
-                if math.random() < 0.1 then
-                    tile.tree = Tree(x - 0.5, y - 0.5)
-                end
             end
         end
     end
 end
 
-function Ground:render(renderTile)
+function Ground:render()
     for y = 1, MAP_SIZE do
         for x = 1, MAP_SIZE do
-            renderTile(gTextures['grassland_tiles'], 
+            love.graphics.draw(gTextures['grassland_tiles'], 
                 gFrames['grassland_tiles'][self.tiles[y][x].id], 
-                x - 1, y - 1)
-        end
-    end
-end
-
-function Ground:renderBushes(renderBody)
-    for y = 1, MAP_SIZE do
-        for x = 1, MAP_SIZE do
+                Cartesian(x - 1, y - 1))
             if self.tiles[y][x].bush then
-                renderBody(gTextures['grassland_tiles'], 
-                    self.tiles[y][x].bush, x - 0.5, y - 0.5, -1.5, -1.5)
-            end
-        end
-    end
-end
-
-function Ground:renderTrees(renderBody)
-    for y = 1, MAP_SIZE do
-        for x = 1, MAP_SIZE do
-            if self.tiles[y][x].tree then
-                self.tiles[y][x].tree:render(renderBody)
+                love.graphics.draw(gTextures['grassland_tiles'], 
+                    self.tiles[y][x].bush, Cartesian(x - 2, y - 2))
             end
         end
     end

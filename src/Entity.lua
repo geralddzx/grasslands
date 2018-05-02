@@ -29,11 +29,6 @@ function Entity:update(dt)
     self.stateMachine:update(dt)
 end
 
-
-function Entity:render()
-    self.stateMachine:render()
-end
-
 function Entity:origin()
     return self.x - self.width / 2, self.y - self.height / 2
 end
