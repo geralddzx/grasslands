@@ -126,11 +126,6 @@ function Vector(direction)
     --     return -1, 0
 end
 
-function VirtualPosition(x, y)
-    return x / love.graphics.getWidth() * VIRTUAL_WIDTH, 
-        y / love.graphics.getHeight() * VIRTUAL_HEIGHT
-end
-
 -- function Distance(x1, y1, x2, y2)
 --     return math.sqrt(x2 - x1)^2 + (y2 - y1)^2)
 -- end

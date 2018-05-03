@@ -74,9 +74,15 @@ function love.mousepressed(x, y, key)
         x / love.graphics.getWidth() * VIRTUAL_WIDTH, 
         y / love.graphics.getHeight() * VIRTUAL_HEIGHT
     }
-    print_r(gFrames['clothes'][2][1])
 end
 
 function love.mousereleased(x, y, key)
     love.mouse.keysReleased[key] = true 
+end
+
+function love.mousedirection()
+    local x, y = love.mouse.getPosition()
+    x, y = x - love.graphics.getWidth() / 2,
+        y - love.graphics.getHeight() / 2
+    return Direction(x, y)
 end

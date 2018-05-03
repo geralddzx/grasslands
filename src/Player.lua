@@ -4,6 +4,8 @@ function Player:init(x, y)
     self.x = x
     self.y = y
 
+    self.health = 100
+
     self.direction = 1
 
     self.width = 1
@@ -14,6 +16,7 @@ function Player:init(x, y)
 
     self.body = 'clothes'
     self.head = 'male_head1'
+    self.weapon = 'dagger'
 
     self.offsetX = -4
     self.offsetY = -2
@@ -27,6 +30,9 @@ function Player:graphics()
         }, {
             gTextures[self.head],
             gFrames[self.head][self.direction][self.animation:getCurrentFrame()]
+        }, {
+            gTextures[self.weapon],
+            gFrames[self.weapon][self.direction][self.animation:getCurrentFrame()]
         }
     }
 end

@@ -43,9 +43,9 @@ function Air:render()
             for k, graphic in pairs(object:graphics()) do
                 love.graphics.draw(graphic[1], graphic[2],
                     Cartesian(object.x + object.offsetX, object.y + object.offsetY))
-                love.graphics.setColor(255, 255, 255)
-                local x, y = Cartesian(object.x, object.y)
-                love.graphics.circle("fill", x, y, object.radius * 32) 
+                -- love.graphics.setColor(255, 255, 255)
+                -- local x, y = Cartesian(object.x, object.y)
+                -- love.graphics.circle("fill", x, y, object.radius * 32) 
             end
         end
     end
@@ -58,6 +58,7 @@ function Air:generatePlayer()
     self.player.stateMachine = StateMachine {
         ['idle'] = function() return PlayerIdleState(self.player, self) end,
         ['move'] = function() return PlayerMoveState(self.player, self) end,
+        ['attack'] = function() return PlayerAttackState(self.player, self) end,
     }
     self.player:changeState('idle')
 end
@@ -86,6 +87,7 @@ function Air:generateMonsters()
                     monster.stateMachine = StateMachine {
                         ['idle'] = function() return MonsterIdleState(monster, self) end,
                         ['move'] = function() return MonsterMoveState(monster, self) end,
+                        ['hurt'] = function() return MonsterHurtState(monster, self) end,
                     }
                     monster:changeState('idle')
                 end
@@ -118,9 +120,6 @@ function Air:processCollisions()
             local objects = self.tiles[y][x]
             for i = 1, #objects do
                 for j = i + 1, #objects do
-                    if objects[i] == objects[j] then
-                        print(123)
-                    end
                     processCollision(objects[i], objects[j])
                 end
             end

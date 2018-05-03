@@ -24,7 +24,9 @@ require 'src/states/BaseState'
 require 'src/states/game/PlayState'
 require 'src/states/player/PlayerIdleState'
 require 'src/states/player/PlayerMoveState'
+require 'src/states/player/PlayerAttackState'
 require 'src/states/monster/MonsterIdleState'
+require 'src/states/monster/MonsterHurtState'
 
 gTextures = {
     ['grassland_tiles'] = love.graphics.newImage('graphics/map/grassland_tiles.png'),
@@ -78,4 +80,50 @@ gFrames = {
 
 gSounds = {
     ['music'] = love.audio.newSource('sounds/grassy_world.mp3'),
+    ['swing'] = {
+        love.audio.newSource('sounds/battle/swing.wav'),
+        love.audio.newSource('sounds/battle/swing2.wav'),
+        love.audio.newSource('sounds/battle/swing3.wav'),
+    },
+    ['beetle'] = {
+        hit = {
+            love.audio.newSource('sounds/beetle/bite-small2.wav'),
+            love.audio.newSource('sounds/beetle/bite-small3.wav'),
+        },
+        hurt = {
+            love.audio.newSource('sounds/beetle/bite-small.wav'),
+        }
+    },
+    ['ogre'] = {
+        hit = {
+            love.audio.newSource('sounds/ogre/ogre1.wav'),
+            love.audio.newSource('sounds/ogre/ogre2.wav'),
+        },
+        hurt = {
+            love.audio.newSource('sounds/ogre/ogre3.wav'),
+            love.audio.newSource('sounds/ogre/ogre4.wav'),
+            love.audio.newSource('sounds/ogre/ogre5.wav'),
+        }
+    },
+    ['beast'] = {
+        hit = {
+            love.audio.newSource('sounds/beast/mnstr1.wav'),
+            love.audio.newSource('sounds/beast/mnstr2.wav'),
+            love.audio.newSource('sounds/beast/mnstr3.wav'),
+            love.audio.newSource('sounds/beast/mnstr4.wav'),
+            love.audio.newSource('sounds/beast/mnstr5.wav'),
+            love.audio.newSource('sounds/beast/mnstr6.wav'),
+            love.audio.newSource('sounds/beast/mnstr7.wav'),
+            love.audio.newSource('sounds/beast/mnstr8.wav'),
+            love.audio.newSource('sounds/beast/mnstr9.wav'),
+            love.audio.newSource('sounds/beast/mnstr10.wav'),
+        },
+        hurt = {
+            love.audio.newSource('sounds/beast/mnstr11.wav'),
+            love.audio.newSource('sounds/beast/mnstr12.wav'),
+            love.audio.newSource('sounds/beast/mnstr13.wav'),
+            love.audio.newSource('sounds/beast/mnstr14.wav'),
+            love.audio.newSource('sounds/beast/mnstr15.wav'),
+        }
+    } 
 }

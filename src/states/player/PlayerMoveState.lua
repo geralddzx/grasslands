@@ -8,8 +8,9 @@ end
 
 function PlayerMoveState:update(dt)
     if love.mouse.isDown(1) then
-        local x, y = VirtualPosition(love.mouse.getPosition())
-        self.player.direction = Direction(x - VIRTUAL_WIDTH / 2, y - VIRTUAL_HEIGHT / 2)
+        self.player.direction = love.mousedirection()
+    elseif love.mouse.isDown(2) then
+        self.player:changeState('attack')
     else
         self.player:changeState('idle')
     end
