@@ -6,7 +6,7 @@ function Monster:init(x, y, def)
     self.x = x
     self.y = y
     self.sounds = def.sounds
-    self.health = 100
+    self.health = 30
 
     self.states = def.states
     

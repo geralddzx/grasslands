@@ -13,7 +13,7 @@ Animation = Class{}
 function Animation:init(frames, interval, looping)
     self.frames = frames
     self.interval = interval
-    self.looping = looping or true
+    self.looping = looping
 
     self.timer = 0
     self.currentFrame = 1
@@ -44,7 +44,7 @@ function Animation:update(dt)
             self.currentFrame = math.max(1, (self.currentFrame + 1) % (#self.frames + 1))
 
             -- if we've looped back to the beginning, record
-            if self.currentFrame == 1 then
+            if self.currentFrame == #self.frames then
                 self.timesPlayed = self.timesPlayed + 1
             end
         end

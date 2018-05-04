@@ -19,7 +19,7 @@ function PlayerAttackState:init(player, air)
                         Magnitude(object.x - hitX, object.y - hitY) <
                         object.radius + hitRadius then
                     hits[object] = true
-                    object:changeState('hurt', 10)
+                    object:hurt(10)
                 end
             end
         end

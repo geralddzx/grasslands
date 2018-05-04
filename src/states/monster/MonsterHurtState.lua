@@ -13,7 +13,11 @@ end
 
 function MonsterHurtState:update(dt)
     if self.monster.animation.timesPlayed > 0 then
-        self.monster:changeState('idle')
+        if self.monster.health <= 0 then
+            self.monster:changeState('death')
+        else
+            self.monster:changeState('idle')
+        end
     end
 end
 

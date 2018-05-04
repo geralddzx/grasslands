@@ -5,7 +5,7 @@ function MonsterIdleState:init(monster, air)
     self.air = air
 
     monster.animation = Animation(monster.states['idle']['frames'], 
-        monster.states['idle']['rate'])
+        monster.states['idle']['rate'], true)
 end
 
 function MonsterIdleState:update(dt)

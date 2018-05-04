@@ -32,6 +32,7 @@ require 'src/states/monster/MonsterIdleState'
 require 'src/states/monster/MonsterMoveState'
 require 'src/states/monster/MonsterHurtState'
 require 'src/states/monster/MonsterAttackState'
+require 'src/states/monster/MonsterDeathState'
 
 gTextures = {
     ['grassland_tiles'] = love.graphics.newImage('graphics/map/grassland_tiles.png'),

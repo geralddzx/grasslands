@@ -42,6 +42,12 @@ function Entity:attack()
     end
 end
 
+function Entity:hurt(health)
+    if not self.dead then
+        self:changeState('hurt', health)
+    end
+end
+
 -- function Entity:createAnimations(animations)
 --     local animationsReturned = {}
 

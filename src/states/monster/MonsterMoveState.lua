@@ -7,7 +7,7 @@ function MonsterMoveState:init(monster, air)
     self.bumped = false
 
     monster.animation = Animation(monster.states['move']['frames'], 
-        monster.states['move']['rate'])
+        monster.states['move']['rate'], true)
 end
 
 function MonsterMoveState:update(dt)
@@ -31,13 +31,10 @@ function MonsterMoveState:update(dt)
         end
     elseif self.monster.bumped then
         self.monster.bumped = false
-        self.monster:changeDirection(math.random(8))
+        self.monster:changeState('idle')
     elseif math.random() < dt / 5 then
         self.monster:changeDirection(math.random(8))
-    end
-
-    -- stop moving after 10 seconds on average
-    if math.random() < dt / 10 then
+    elseif math.random() < dt / 10 then
         self.monster:changeState('idle')
     end
 

@@ -10,7 +10,7 @@ function MonsterAttackState:init(monster, air)
     local sounds = gSounds[monster.sounds]['attack']
     sounds[math.random(#sounds)]:play()
 
-    self.air.player:changeState('hurt')
+    self.air.player:hurt(10)
 end
 
 function MonsterAttackState:update(dt)
@@ -23,9 +23,4 @@ function MonsterAttackState:update(dt)
         self.monster.lastAttack = os.time()
         self.monster:changeState('move')
     end
-end
-
-function MonsterAttackState:damage(dt)
-    self.monster.health = self.monster.health - 10
-    self.monster:changeState('hurt')
 end

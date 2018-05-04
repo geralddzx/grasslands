@@ -4,6 +4,7 @@ Air = Class{}
 function Air:init(ground)
     self.ground = ground
     self.objects = {}
+    self.deadObjects = {}
 
     self:generatePlayer()
     self:generateTrees()
@@ -19,6 +20,10 @@ function Air:update(dt)
 end
 
 function Air:render()
+    for k, object in pairs(self.deadObjects) do
+        renderObject(object)
+    end
+
     local depths = {}
     for i = 1, 2 * MAP_SIZE do
         depths[i] = {}
@@ -40,14 +45,18 @@ function Air:render()
         end)
 
         for k, object in pairs(depth) do
-            for k, graphic in pairs(object:graphics()) do
-                love.graphics.draw(graphic[1], graphic[2],
-                    Cartesian(object.x + object.offsetX, object.y + object.offsetY))
-                -- love.graphics.setColor(255, 255, 255)
-                -- local x, y = Cartesian(object.x, object.y)
-                -- love.graphics.circle("fill", x, y, object.radius * 32) 
-            end
+            renderObject(object)
         end
+    end
+end
+
+function renderObject(object)
+    for k, graphic in pairs(object:graphics()) do
+        love.graphics.draw(graphic[1], graphic[2],
+            Cartesian(object.x + object.offsetX, object.y + object.offsetY))
+        -- love.graphics.setColor(255, 255, 255)
+        -- local x, y = Cartesian(object.x, object.y)
+        -- love.graphics.circle("fill", x, y, object.radius * 32) 
     end
 end
 
@@ -90,6 +99,7 @@ function Air:generateMonsters()
                         ['move'] = function() return MonsterMoveState(monster, self) end,
                         ['hurt'] = function() return MonsterHurtState(monster, self) end,
                         ['attack'] = function() return MonsterAttackState(monster, self) end,
+                        ['death'] = function() return MonsterDeathState(monster, self) end,
                     }
                     monster:changeState('idle')
                 end

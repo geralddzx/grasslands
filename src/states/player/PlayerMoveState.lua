@@ -3,7 +3,7 @@ PlayerMoveState = Class{__includes = BaseState}
 function PlayerMoveState:init(player, air)
     self.player = player
 
-    player.animation = Animation({5,6,7,8,9,10,11,12}, 0.1)
+    player.animation = Animation({5,6,7,8,9,10,11,12}, 0.1, true)
 end
 
 function PlayerMoveState:update(dt)
