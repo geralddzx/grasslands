@@ -16,7 +16,7 @@ function PlayerMoveState:update(dt)
     end
 
     
-    local dx, dy = Vector(self.player.direction)
+    local dx, dy = VectorFromDirection(self.player.direction)
     self.player.x = self.player.x + PLAYER_RUN_SPEED * dt * dx
     self.player.y = self.player.y + PLAYER_RUN_SPEED * dt * dy
 end

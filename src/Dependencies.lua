@@ -26,6 +26,7 @@ require 'src/states/player/PlayerIdleState'
 require 'src/states/player/PlayerMoveState'
 require 'src/states/player/PlayerAttackState'
 require 'src/states/monster/MonsterIdleState'
+require 'src/states/monster/MonsterMoveState'
 require 'src/states/monster/MonsterHurtState'
 
 gTextures = {

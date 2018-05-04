@@ -4,8 +4,8 @@ function MonsterHurtState:init(monster, air)
     self.monster = monster
     self.air = air
 
-    monster.animation = Animation(monster.states['block'] or
-        monster.states['hit'], monster.rate, false)
+    monster.animation = Animation(monster.states['hurt']['frames'], 
+        monster.states['hurt']['rate'], false)
 
     local sounds = gSounds[monster.sounds]['hurt']
     sounds[math.random(#sounds)]:play()

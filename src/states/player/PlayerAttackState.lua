@@ -7,7 +7,7 @@ function PlayerAttackState:init(player, air)
 
     gSounds['swing'][math.random(#gSounds['swing'])]:play()
 
-    local hitX, hitY = Vector(player.direction)
+    local hitX, hitY = VectorFromDirection(player.direction)
     hitX, hitY = player.x + hitX / 2, player.y + hitY / 2
     local hitRadius = 0.5
 

@@ -6,7 +6,14 @@ function Ground:init()
     for y = 1, MAP_SIZE do
         table.insert(self.tiles, {})
         for x = 1, MAP_SIZE do
-            local tile = {id = MAP_EMPTY, soil = 0}
+            local tile = {
+                id = MAP_EMPTY, 
+                soil = 0, 
+                x = x - 0.5, 
+                y = y - 0.5, 
+                radius = 0.5, 
+                mass = math.huge
+            }
             table.insert(self.tiles[y], tile)
 
             if x == 5 and y == 5 then
@@ -61,6 +68,11 @@ function Ground:render()
             love.graphics.draw(gTextures['grassland_tiles'], 
                 gFrames['grassland_tiles'][self.tiles[y][x].id], 
                 Cartesian(x - 1, y - 1))
+
+            -- love.graphics.setColor(255, 255, 255, 255)
+            -- local x1, y1 = Cartesian(x - 1, y - 1)
+            -- love.graphics.circle("fill", x1, y1, 5)
+            
             if self.tiles[y][x].bush then
                 love.graphics.draw(gTextures['grassland_tiles'], 
                     self.tiles[y][x].bush, Cartesian(x - 2, y - 2))

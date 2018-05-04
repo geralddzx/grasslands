@@ -104,13 +104,13 @@ function Generate2DQuads(atlas, tilewidth, tileheight)
 end
 
 function Direction(x, y)
-    local angle = math.atan2(-y, x)
+    local angle = Angle(x, y)
     local scaledAngle = angle / (2 * math.pi) * 8
     local nearestDirection = math.floor(scaledAngle + 0.5)
     return (-nearestDirection - 4) % 8 + 1
 end
 
-function Vector(direction)
+function VectorFromDirection(direction)
     local angle = -direction * math.pi / 4 + math.pi * 3 / 2
     return math.cos(angle), -math.sin(angle)
 
@@ -126,12 +126,24 @@ function Vector(direction)
     --     return -1, 0
 end
 
+function VectorFromAngle(angle)
+    return math.sin(angle), math.cos(angle)
+end
+
+function Angle(x, y)
+    return math.atan2(-y, x)
+end
+
 -- function Distance(x1, y1, x2, y2)
 --     return math.sqrt(x2 - x1)^2 + (y2 - y1)^2)
 -- end
 
 function Magnitude(x, y)
     return math.sqrt(x^2 + y^2)
+end
+
+function Hypotenuse(angle)
+    return math.min(1 / math.abs(math.cos(angle)), 1 / math.abs(math.sin(angle)))
 end
 
 --[[

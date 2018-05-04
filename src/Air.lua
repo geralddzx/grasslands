@@ -114,6 +114,32 @@ function Air:updateIndex()
     end
 end
 
+-- function Air:processTiles()
+--     for y = 1, MAP_SIZE do
+--         for x = 1, MAP_SIZE do
+--             for k, object in pairs(self.objects) do
+--                 for x = math.floor(object.x - object.radius) + 1, math.floor(object.x + object.radius) + 1 do
+--                     if not GRASS[self.ground.tiles[y][x].id] then
+--                         local dx, dy = object.x - (x - 0.5), object.y - (y - 0.5)
+--                         local angle = Angle(x, y)
+--                         local hypotenuse = 0.5 * Hypotenuse(angle)
+--                         local distance = Magnitude(dx, dy)
+--                         local gap = distance - object.radius
+                        
+--                         if gap < hypotenuse then
+--                             local scaleFactor = (hypotenuse - gap) / distance
+--                             object.x = object.x + scaleFactor * dx
+--                             object.y = object.y + scaleFactor * dy
+--                             object.bumped = true
+--                             -- print(self.player.x, self.player.y)
+--                         end
+--                     end
+--                 end
+--             end
+--         end
+--     end
+-- end
+
 function Air:processCollisions()
     for y = 1, MAP_SIZE do
         for x = 1, MAP_SIZE do
@@ -121,6 +147,9 @@ function Air:processCollisions()
             for i = 1, #objects do
                 for j = i + 1, #objects do
                     processCollision(objects[i], objects[j])
+                end
+                if not GRASS[self.ground.tiles[y][x].id] then
+                    processCollision(objects[i], self.ground.tiles[y][x])
                 end
             end
         end
@@ -138,6 +167,9 @@ function processCollision(a, b)
     local distance = Magnitude(x, y)
 
     if distance < touchDistance then
+        a.bumped = true
+        b.bumped = true
+        
         local pushDistance = touchDistance - distance
         local pushScale = pushDistance / distance
         local dx, dy = pushScale * x, pushScale * y
