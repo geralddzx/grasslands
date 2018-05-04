@@ -8,6 +8,7 @@ require 'src/Util'
 require 'src/Animation'
 
 require 'src/monster_defs'
+require 'src/equipment_defs'
 require 'src/constants'
 
 require 'src/Ground'
@@ -15,10 +16,10 @@ require 'src/Water'
 require 'src/Air'
 
 require 'src/Tree'
-
 require 'src/Entity'
 require 'src/Player'
 require 'src/Monster'
+require 'src/Equipment'
 
 require 'src/states/BaseState'
 require 'src/states/game/PlayState'
@@ -36,9 +37,18 @@ require 'src/states/monster/MonsterDeathState'
 
 gTextures = {
     ['grassland_tiles'] = love.graphics.newImage('graphics/map/grassland_tiles.png'),
+    -- equipment
     ['clothes'] = love.graphics.newImage('graphics/player/clothes.png'),
     ['male_head1'] = love.graphics.newImage('graphics/player/male_head1.png'),
     ['dagger'] = love.graphics.newImage('graphics/player/dagger.png'),
+    ['shield'] = love.graphics.newImage('graphics/player/shield.png'),
+    ['greatsword'] = love.graphics.newImage('graphics/player/greatsword.png'),
+    ['leather_armor'] = love.graphics.newImage('graphics/player/leather_armor.png'),
+    ['longsword'] = love.graphics.newImage('graphics/player/longsword.png'),
+    ['rod'] = love.graphics.newImage('graphics/player/rod.png'),
+    ['shortsword'] = love.graphics.newImage('graphics/player/shortsword.png'),
+    ['steel_armor'] = love.graphics.newImage('graphics/player/steel_armor.png'),
+    ['buckler'] = love.graphics.newImage('graphics/player/buckler.png'),
     -- monsters
     ['antlion'] = love.graphics.newImage('graphics/monsters/antlion.png'),
     ['fire_ant'] = love.graphics.newImage('graphics/monsters/fire_ant.png'),
@@ -65,9 +75,18 @@ gFrames = {
     ['grassland_tiles'] = GenerateQuads(gTextures['grassland_tiles'], 64, 32),
     ['bushes'] = Slice(GenerateQuads(gTextures['grassland_tiles'], 64, 64), 81, 96),
     ['trees'] = GenerateTreeQuads(gTextures['grassland_tiles']),
+    -- equipment
+    ['shield'] = Generate2DQuads(gTextures['shield'], 128, 128),
+    ['greatsword'] = Generate2DQuads(gTextures['greatsword'], 128, 128),
+    ['leather_armor'] = Generate2DQuads(gTextures['leather_armor'], 128, 128),
+    ['longsword'] = Generate2DQuads(gTextures['longsword'], 128, 128),
+    ['rod'] = Generate2DQuads(gTextures['rod'], 128, 128),
+    ['shortsword'] = Generate2DQuads(gTextures['shortsword'], 128, 128),
+    ['steel_armor'] = Generate2DQuads(gTextures['steel_armor'], 128, 128),
     ['clothes'] = Generate2DQuads(gTextures['clothes'], 128, 128),
     ['male_head1'] = Generate2DQuads(gTextures['male_head1'], 128, 128),
     ['dagger'] = Generate2DQuads(gTextures['dagger'], 128, 128),
+    ['buckler'] = Generate2DQuads(gTextures['buckler'], 128, 128),
     -- monsters
     ['antlion'] = Generate2DQuads(gTextures['antlion'], 128, 128),
     ['fire_ant'] = Generate2DQuads(gTextures['fire_ant'], 128, 128),

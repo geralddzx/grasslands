@@ -17,5 +17,9 @@ function MonsterDeathState:update(dt)
             end
         end
         table.insert(self.air.deadObjects, self.monster)
+        local equipment = Equipment(self.monster.x + math.random() - 0.5, 
+            self.monster.y + math.random() - 0.5,
+            EQUIPMENT_DEFS[math.random(#EQUIPMENT_DEFS)])
+        table.insert(self.air.drops, equipment)
     end
 end

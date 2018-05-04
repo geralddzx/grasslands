@@ -5,6 +5,7 @@ function Air:init(ground)
     self.ground = ground
     self.objects = {}
     self.deadObjects = {}
+    self.drops = {}
 
     self:generatePlayer()
     self:generateTrees()
@@ -22,6 +23,10 @@ end
 function Air:render()
     for k, object in pairs(self.deadObjects) do
         renderObject(object)
+    end
+
+    for k, drop in pairs(self.drops) do
+        drop:render()
     end
 
     local depths = {}
