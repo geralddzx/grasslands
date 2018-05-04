@@ -8,7 +8,7 @@ function MonsterHurtState:init(monster, air)
         monster.states['hurt']['rate'], false)
 
     local sounds = gSounds[monster.sounds]['hurt']
-    sounds[math.random(#sounds)]:play()
+    local sound = sounds[math.random(#sounds)]:play()
 end
 
 function MonsterHurtState:update(dt)
@@ -17,5 +17,6 @@ function MonsterHurtState:update(dt)
     end
 end
 
-function MonsterHurtState:damage(dt)
+function MonsterHurtState:enter(health)
+    self.monster.health = self.monster.health - health
 end

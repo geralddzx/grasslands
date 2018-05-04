@@ -33,6 +33,15 @@ function Entity:origin()
     return self.x - self.width / 2, self.y - self.height / 2
 end
 
+function Entity:attack()
+    self.lastAttack = self.lastAttack or 0
+    if os.time() - self.lastAttack > self.attackSpeed then
+        self:changeState('attack')
+        self.lastAttack = os.time()
+        return true
+    end
+end
+
 -- function Entity:createAnimations(animations)
 --     local animationsReturned = {}
 

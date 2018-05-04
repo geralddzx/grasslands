@@ -107,10 +107,10 @@ function Direction(x, y)
     local angle = Angle(x, y)
     local scaledAngle = angle / (2 * math.pi) * 8
     local nearestDirection = math.floor(scaledAngle + 0.5)
-    return (-nearestDirection - 4) % 8 + 1
+    return (-nearestDirection - 3) % 8 + 1
 end
 
-function VectorFromDirection(direction)
+function Vector(direction)
     local angle = -direction * math.pi / 4 + math.pi * 3 / 2
     return math.cos(angle), -math.sin(angle)
 
@@ -124,10 +124,6 @@ function VectorFromDirection(direction)
     --     return -1, 0
     -- elseif direction == 2 then
     --     return -1, 0
-end
-
-function VectorFromAngle(angle)
-    return math.sin(angle), math.cos(angle)
 end
 
 function Angle(x, y)

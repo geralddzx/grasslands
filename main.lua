@@ -84,5 +84,5 @@ function love.mousedirection()
     local x, y = love.mouse.getPosition()
     x, y = x - love.graphics.getWidth() / 2,
         y - love.graphics.getHeight() / 2
-    return Direction(x, y)
+    return (Direction(x, y) - 2) % 8 + 1
 end

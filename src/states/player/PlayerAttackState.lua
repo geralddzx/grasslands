@@ -5,11 +5,11 @@ function PlayerAttackState:init(player, air)
     
     player.animation = Animation({13, 14, 15, 16}, 0.1, false)
 
-    gSounds['swing'][math.random(#gSounds['swing'])]:play()
+    gSounds['player']['attack'][math.random(#gSounds['player']['attack'])]:play()
 
-    local hitX, hitY = VectorFromDirection(player.direction)
+    local hitX, hitY = Vector(player.direction)
     hitX, hitY = player.x + hitX / 2, player.y + hitY / 2
-    local hitRadius = 0.5
+    local hitRadius = 1
 
     local hits = {}
     for x = math.floor(hitX - hitRadius) + 1, math.floor(hitX + hitRadius) + 1 do
@@ -19,7 +19,7 @@ function PlayerAttackState:init(player, air)
                         Magnitude(object.x - hitX, object.y - hitY) <
                         object.radius + hitRadius then
                     hits[object] = true
-                    object.stateMachine.current:damage(1)
+                    object:changeState('hurt', 10)
                 end
             end
         end

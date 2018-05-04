@@ -16,14 +16,14 @@ function StateMachine:init(states)
 		exit = function() end
 	}
 	self.states = states or {} -- [name] -> [function that returns states]
-	self.current = self.empty
+    self.current = self.empty
 end
 
 function StateMachine:change(stateName, enterParams)
-	assert(self.states[stateName]) -- state must exist!
-	self.current:exit()
-	self.current = self.states[stateName]()
-	self.current:enter(enterParams)
+    assert(self.states[stateName]) -- state must exist!
+    self.current:exit()
+    self.current = self.states[stateName]()
+    self.current:enter(enterParams)
 end
 
 function StateMachine:update(dt)

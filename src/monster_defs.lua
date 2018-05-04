@@ -331,7 +331,7 @@ MONSTER_DEFS = {
                 frames = {1, 2, 3, 4, 5, 6, 7, 8},
             },
             ['move'] = {
-                rate = 0.05, 
+                rate = 0.08, 
                 frames = {9, 10, 11, 12, 13, 14, 15, 16},
             },
             ['attack'] = {

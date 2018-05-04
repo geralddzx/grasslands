@@ -59,6 +59,7 @@ function Air:generatePlayer()
         ['idle'] = function() return PlayerIdleState(self.player, self) end,
         ['move'] = function() return PlayerMoveState(self.player, self) end,
         ['attack'] = function() return PlayerAttackState(self.player, self) end,
+        ['hurt'] = function() return PlayerHurtState(self.player, self) end,
     }
     self.player:changeState('idle')
 end
@@ -80,7 +81,7 @@ function Air:generateMonsters()
         for x = 1, MAP_SIZE do
             if GRASS[self.ground.tiles[y][x].id] then
                 local def = MONSTER_DEFS[math.random(#MONSTER_DEFS)]
-                if (math.random() < 0.1 / def.level ^ 1) then
+                if (math.random() < 0.025 / def.level ^ 1) then
                     local monster = Monster(x - 0.5, y - 0.5, def)
                     table.insert(self.objects, monster)
 
@@ -88,6 +89,7 @@ function Air:generateMonsters()
                         ['idle'] = function() return MonsterIdleState(monster, self) end,
                         ['move'] = function() return MonsterMoveState(monster, self) end,
                         ['hurt'] = function() return MonsterHurtState(monster, self) end,
+                        ['attack'] = function() return MonsterAttackState(monster, self) end,
                     }
                     monster:changeState('idle')
                 end
@@ -169,7 +171,7 @@ function processCollision(a, b)
     if distance < touchDistance then
         a.bumped = true
         b.bumped = true
-        
+
         local pushDistance = touchDistance - distance
         local pushScale = pushDistance / distance
         local dx, dy = pushScale * x, pushScale * y

@@ -22,12 +22,16 @@ require 'src/Monster'
 
 require 'src/states/BaseState'
 require 'src/states/game/PlayState'
+
 require 'src/states/player/PlayerIdleState'
 require 'src/states/player/PlayerMoveState'
 require 'src/states/player/PlayerAttackState'
+require 'src/states/player/PlayerHurtState'
+
 require 'src/states/monster/MonsterIdleState'
 require 'src/states/monster/MonsterMoveState'
 require 'src/states/monster/MonsterHurtState'
+require 'src/states/monster/MonsterAttackState'
 
 gTextures = {
     ['grassland_tiles'] = love.graphics.newImage('graphics/map/grassland_tiles.png'),
@@ -81,13 +85,25 @@ gFrames = {
 
 gSounds = {
     ['music'] = love.audio.newSource('sounds/grassy_world.mp3'),
-    ['swing'] = {
-        love.audio.newSource('sounds/battle/swing.wav'),
-        love.audio.newSource('sounds/battle/swing2.wav'),
-        love.audio.newSource('sounds/battle/swing3.wav'),
+    ['player'] = {
+        attack = {
+            love.audio.newSource('sounds/battle/swing.wav'),
+            love.audio.newSource('sounds/battle/swing2.wav'),
+            love.audio.newSource('sounds/battle/swing3.wav'),
+        },
+        hurt = {
+            love.audio.newSource('sounds/player/pain1.wav'),
+            love.audio.newSource('sounds/player/pain2.wav'),
+            love.audio.newSource('sounds/player/pain3.wav'),
+            love.audio.newSource('sounds/player/pain4.wav'),
+            love.audio.newSource('sounds/player/pain5.wav'),
+            love.audio.newSource('sounds/player/pain6.wav'),
+            love.audio.newSource('sounds/player/painh.wav'),
+            love.audio.newSource('sounds/player/paino.wav'),
+        }
     },
     ['beetle'] = {
-        hit = {
+        attack = {
             love.audio.newSource('sounds/beetle/bite-small2.wav'),
             love.audio.newSource('sounds/beetle/bite-small3.wav'),
         },
@@ -96,7 +112,7 @@ gSounds = {
         }
     },
     ['ogre'] = {
-        hit = {
+        attack = {
             love.audio.newSource('sounds/ogre/ogre1.wav'),
             love.audio.newSource('sounds/ogre/ogre2.wav'),
         },
@@ -107,7 +123,7 @@ gSounds = {
         }
     },
     ['beast'] = {
-        hit = {
+        attack = {
             love.audio.newSource('sounds/beast/mnstr1.wav'),
             love.audio.newSource('sounds/beast/mnstr2.wav'),
             love.audio.newSource('sounds/beast/mnstr3.wav'),

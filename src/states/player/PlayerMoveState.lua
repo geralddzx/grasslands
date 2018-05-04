@@ -10,13 +10,13 @@ function PlayerMoveState:update(dt)
     if love.mouse.isDown(1) then
         self.player.direction = love.mousedirection()
     elseif love.mouse.isDown(2) then
-        self.player:changeState('attack')
+        self.player:attack()
     else
         self.player:changeState('idle')
     end
 
     
-    local dx, dy = VectorFromDirection(self.player.direction)
+    local dx, dy = Vector(self.player.direction)
     self.player.x = self.player.x + PLAYER_RUN_SPEED * dt * dx
     self.player.y = self.player.y + PLAYER_RUN_SPEED * dt * dy
 end

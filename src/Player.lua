@@ -20,6 +20,8 @@ function Player:init(x, y)
 
     self.offsetX = -4
     self.offsetY = -2
+
+    self.attackSpeed = 0.5
 end
 
 function Player:graphics()
