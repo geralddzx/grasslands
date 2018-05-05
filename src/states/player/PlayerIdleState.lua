@@ -18,10 +18,9 @@ end
 
 function PlayerIdleState:processPickup()
     for i, drop in pairs(self.air.drops) do
-        if Magnitude(drop.x - self.player.x, drop.y - self.player.y) < 2 then
-            table.insert(self.player.inventory, drop)
+        if Magnitude(drop.x - self.player.x, drop.y - self.player.y) < 0.5 then
             table.remove(self.air.drops, i)
-            gSounds['equipment'][drop.sound]:play()
+            self.player:pickup(drop)
             return true
         end
     end

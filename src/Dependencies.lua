@@ -14,6 +14,7 @@ require 'src/constants'
 require 'src/Ground'
 require 'src/Water'
 require 'src/Air'
+require 'src/Panel'
 
 require 'src/Tree'
 require 'src/Entity'
@@ -37,6 +38,12 @@ require 'src/states/monster/MonsterDeathState'
 
 gTextures = {
     ['grassland_tiles'] = love.graphics.newImage('graphics/map/grassland_tiles.png'),
+    -- interface
+    ['panel'] = love.graphics.newImage('graphics/interface/panel.tga'),
+    ['tile'] = love.graphics.newImage('graphics/interface/tile.tga'),
+    ['empty_bar'] = love.graphics.newImage('graphics/interface/empty_bar.png'),
+    ['red_bar'] = love.graphics.newImage('graphics/interface/red_bar.png'),
+    ['green_bar'] = love.graphics.newImage('graphics/interface/green_bar.png'),
     -- equipment
     ['clothes'] = love.graphics.newImage('graphics/player/clothes.png'),
     ['male_head1'] = love.graphics.newImage('graphics/player/male_head1.png'),
@@ -177,4 +184,8 @@ gSounds = {
             love.audio.newSource('sounds/beast/mnstr15.wav'),
         }
     } 
+}
+
+gFonts = {
+    ['small'] = love.graphics.newFont('fonts/knights-quest.ttf', 16),
 }

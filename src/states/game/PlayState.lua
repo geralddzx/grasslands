@@ -5,6 +5,7 @@ function PlayState:init()
     self.water = Water()
     self.air = Air(self.ground)
     self.player = self.air.player
+    self.panel = Panel(self.player)
 end
 
 function PlayState:enter(params)
@@ -16,6 +17,20 @@ function PlayState:update(dt)
     end
 
     self.air:update(dt)
+
+    for i = 10, 1, -1 do
+        if love.keyboard.wasPressed(tostring(i)) then
+            local item = self.player.inventory[i]
+            if item then
+                local currentEquipment = self.player[item.type]
+                if currentEquipment then
+                    self.player:pickup(currentEquipment)
+                end
+                table.remove(self.player.inventory, i)
+                self.player[item.type] = item
+            end
+        end
+    end
 end
 
 function PlayState:render()
@@ -31,4 +46,6 @@ function PlayState:render()
     self.ground:render()
     self.air:render()
     love.graphics.pop()
+
+    self.panel:render()
 end

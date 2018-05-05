@@ -4,22 +4,28 @@ EQUIPMENT_DEFS = {
         attack = 0,
         defense = 50,
         type = 'armor',
-        direction = 1,
+        direction = 3,
         level = 0,
         sound = 'cloth',
+        offsetX = -4,
+        offsetY = -1.75,
     }, {
         texture = 'male_head1',
         type = 'head',
         direction = 1,
         level = 0,
+        offsetX = 0,
+        offsetY = 0,
     }, {
         texture = 'dagger',
         attack = 50,
         type = 'weapon',
         range = 0.5,
-        direction = 1,
+        direction = 5,
         level = 0,
         sound = 'sword-unsheathe',
+        offsetX = -3.75,
+        offsetY = -2.25,
     }, {
         texture = 'shield',
         defense = 100,
@@ -27,6 +33,8 @@ EQUIPMENT_DEFS = {
         direction = 8,
         level = 1,
         sound = 'metal-small2',
+        offsetX = -3.8,
+        offsetY = -2.2,
     }, {
         texture = 'greatsword',
         attack = 200,
@@ -35,6 +43,8 @@ EQUIPMENT_DEFS = {
         direction = 5,
         level = 1,
         sound = 'sword-unsheathe5',
+        offsetX = -3.5,
+        offsetY = -2.5,
     }, {
         texture = 'leather_armor',
         defense = 75,
@@ -42,6 +52,8 @@ EQUIPMENT_DEFS = {
         direction = 5,
         level = 1,
         sound = 'cloth-heavy',
+        offsetX = -3.875,
+        offsetY = -1.875,
     }, {
         texture = 'longsword',
         attack = 150,
@@ -50,6 +62,8 @@ EQUIPMENT_DEFS = {
         direction = 2,
         level = 1,
         sound = 'sword-unsheathe4',
+        offsetX = -4.5,
+        offsetY = -1.75,
     }, {
         texture = 'rod',
         attack = 100,
@@ -58,6 +72,8 @@ EQUIPMENT_DEFS = {
         direction = 5,
         level = 1,
         sound = 'metal-small3',
+        offsetX = -3.6,
+        offsetY = -2.4,
     }, {
         texture = 'shortsword',
         attack = 100,
@@ -66,6 +82,8 @@ EQUIPMENT_DEFS = {
         direction = 1,
         level = 1,
         sound = 'sword-unsheathe2',
+        offsetX = -4.1,
+        offsetY = -1.5,
     }, {
         texture = 'steel_armor',
         defense = 100,
@@ -73,6 +91,8 @@ EQUIPMENT_DEFS = {
         direction = 8,
         level = 1,
         sound = 'armor-light',
+        offsetX = -3.9,
+        offsetY = -1.9,
     }, {
         texture = 'buckler',
         defense = 50,
@@ -80,5 +100,16 @@ EQUIPMENT_DEFS = {
         direction = 7,
         level = 1,
         sound = 'interface1',
+        offsetX = -4.1,
+        offsetY = -2.1,
     }
 }
+
+(function ()
+    for k, def in pairs(EQUIPMENT_DEFS) do
+        local offsetX, offsetY = Cartesian(def.offsetX, def.offsetY)
+        def.icon = love.graphics.newQuad(128 * 23 - offsetX - 12, 
+            128 * (def.direction - 1) - offsetY - 12,
+            24, 24, 4096, 1024)
+    end
+end)()

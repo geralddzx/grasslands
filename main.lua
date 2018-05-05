@@ -1,6 +1,6 @@
 require 'src/Dependencies'
 
--- all assets obtained from opengameart.org
+-- all assets obtained from opengameart.org and www.dafont.com
 
 function love.load()
     if arg[#arg] == "-debug" then require("mobdebug").start() end
@@ -8,6 +8,8 @@ function love.load()
     -- http://nova-fusion.com/2012/09/20/custom-cursors-in-love2d/
     love.mouse.setVisible(false)
     -- love.mouse.setGrabbed(true)
+
+    love.graphics.setFont(gFonts['small'])
 
     math.randomseed(os.time())
     love.window.setTitle('Grassland')

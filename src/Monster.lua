@@ -2,7 +2,7 @@ Monster = Class{__includes = Entity}
 
 function Monster:init(x, y, def)
     self.attackSpeed = 1
-
+    self.level = def.level
     self.x = x
     self.y = y
     self.sounds = def.sounds
