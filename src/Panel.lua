@@ -6,30 +6,43 @@ end
 
 function Panel:render()
     self:renderInventory()
+    self:renderStatus()
+end
 
-    love.graphics.draw(gTextures['panel'], 
-        0, VIRTUAL_HEIGHT - gTextures['panel']:getHeight() / 2, 0, 0.5)
-    love.graphics.draw(gTextures['panel'], 
-        gTextures['panel']:getHeight() / 2, 
-        VIRTUAL_HEIGHT - gTextures['panel']:getHeight() / 2, 0, 0.5)
+function Panel:renderStatus()
+    local y = VIRTUAL_HEIGHT - 32
 
-    love.graphics.draw(gTextures['empty_bar'], 10, VIRTUAL_HEIGHT - 50, 0, 0.5)
+    for i = 1, VIRTUAL_WIDTH / 64 do
+        love.graphics.draw(gTextures['panel'], 64 * (i - 1), y, 0, 0.25)
+    end
+
+    -- there is 6 pixels of shadow at the bottom of the bar, 22 / 2 / 2 == 5.5
+    y = y + 16 - 5.5
+
+    love.graphics.draw(gTextures['empty_bar'], 16, y, 0, 0.5)
     local healthTexture = gTextures['red_bar']
     local healthQuad = love.graphics.newQuad(0, 0,
-        healthTexture:getWidth() * self.player.health / self.player.maxHealth, 
-        healthTexture:getHeight(), healthTexture:getWidth(), healthTexture:getHeight())
-    love.graphics.draw(gTextures['red_bar'], healthQuad, 10, VIRTUAL_HEIGHT - 50, 0, 0.5)
+        206 * self.player.health / self.player.maxHealth, 28, 206, 28)
+    love.graphics.draw(gTextures['red_bar'], healthQuad, 16, y, 0, 0.5)
 
-    love.graphics.draw(gTextures['empty_bar'], 10, VIRTUAL_HEIGHT - 20, 0, 0.5)
+    love.graphics.draw(gTextures['empty_bar'], 103 + 32, y, 0, 0.5)
     local expTexture = gTextures['green_bar']
     local expQuad = love.graphics.newQuad(0, 0,
-        expTexture:getWidth() * self.player.exp / self.player.maxExp, 
-        expTexture:getHeight(), expTexture:getWidth(), expTexture:getHeight())
-    love.graphics.draw(gTextures['green_bar'], expQuad, 10, VIRTUAL_HEIGHT - 20, 0, 0.5)
+        206 * self.player.exp / self.player.maxExp, 28, 206, 28)
+    love.graphics.draw(gTextures['green_bar'], expQuad, 103 + 32, y, 0, 0.5)
+
+    y = VIRTUAL_HEIGHT - 16 - 8
+    local x = 206 + 64
+    local width = (VIRTUAL_WIDTH - x) / 3
+    for stat, value in pairs(self.player:stats()) do
+        love.graphics.printf(stat .. ': ' .. value, x - 32, y, width, 'right')
+        x = x + width
+    end
+    
 end
 
 function Panel:renderInventory()
-    local x, y = VIRTUAL_WIDTH / 2, VIRTUAL_HEIGHT - 32
+    local x, y = VIRTUAL_WIDTH - 10 * 32, VIRTUAL_HEIGHT - 64
     
     love.graphics.setColor(255, 255, 255, 255)
 

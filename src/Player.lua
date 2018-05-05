@@ -53,6 +53,7 @@ end
 
 function Player:stats()
     return {
+        level = self.level,
         attack = 100,
         defense = 100,
     }
