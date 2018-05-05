@@ -105,6 +105,20 @@ gFrames = {
 
 gSounds = {
     ['music'] = love.audio.newSource('sounds/grassy_world.mp3'),
+    ['equipment'] = {
+        ['interface1'] = love.audio.newSource('sounds/equipment/interface1.wav'),
+        ['armor-light'] = love.audio.newSource('sounds/equipment/armor-light.wav'),
+        ['cloth-heavy'] = love.audio.newSource('sounds/equipment/cloth-heavy.wav'),
+        ['cloth'] = love.audio.newSource('sounds/equipment/cloth.wav'),
+        ['metal-small1'] = love.audio.newSource('sounds/equipment/metal-small1.wav'),
+        ['metal-small2'] = love.audio.newSource('sounds/equipment/metal-small2.wav'),
+        ['metal-small3'] = love.audio.newSource('sounds/equipment/metal-small3.wav'),
+        ['sword-unsheathe'] = love.audio.newSource('sounds/equipment/sword-unsheathe.wav'),
+        ['sword-unsheathe2'] = love.audio.newSource('sounds/equipment/sword-unsheathe2.wav'),
+        ['sword-unsheathe3'] = love.audio.newSource('sounds/equipment/sword-unsheathe3.wav'),
+        ['sword-unsheathe4'] = love.audio.newSource('sounds/equipment/sword-unsheathe4.wav'),
+        ['sword-unsheathe5'] = love.audio.newSource('sounds/equipment/sword-unsheathe5.wav'),
+    },
     ['player'] = {
         attack = {
             love.audio.newSource('sounds/battle/swing.wav'),

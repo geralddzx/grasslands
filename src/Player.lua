@@ -22,6 +22,7 @@ function Player:init(x, y)
     self.offsetY = -2
 
     self.attackSpeed = 0.5
+    self.inventory = {}
 end
 
 function Player:graphics()
