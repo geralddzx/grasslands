@@ -40,7 +40,8 @@ function Air:render()
         table.insert(depths[math.floor(object.x + object.y)], object)
     end
 
-    for k, depth in pairs(depths) do
+    for i = self.startX + self.startY, self.endX + self.endY do
+        local depth = depths[i]
         table.sort(depth, function(farther, closer)
             if farther.x + farther.y < closer.x + closer.y then
                 return true
@@ -97,7 +98,7 @@ function Air:generateMonsters()
         for x = self.startX, self.endX do
             if IsGrassTile(self.ground.tiles[y][x].id) then
                 local def = MONSTER_DEFS[math.random(#MONSTER_DEFS)]
-                if (math.random() < 0.025 / def.level ^ 1) then
+                if (math.random() < 0.05 / def.level ^ 1) then
                     local monster = Monster(x - 0.5, y - 0.5, def)
                     table.insert(self.objects, monster)
 

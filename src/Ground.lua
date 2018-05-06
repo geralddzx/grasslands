@@ -4,7 +4,7 @@ function Ground:init()
     self.tiles = {}
     self.startX, self.startY, self.endX, self.endY = 1, 1, 1, 1
     self.tileCount = 0
-    self:generateGrassTile(1, 1, 0.9999)
+    self:generateGrassTile(1, 1, 1)
     self.startX = self.startX - 10
     self.startY = self.startY - 10
     self.endX = self.endX + 10
@@ -164,8 +164,8 @@ function Ground:generateGrassTile(x, y, p)
         for j = -1, 1 do
             if math.abs(i + j) == 1 then
                 if not self.tiles[y + i] or not self.tiles[y + i][x + j] then
-                    if self.tileCount < 5000 and math.random() < p then
-                        self:generateGrassTile(x + j, y + i, p^1.2)
+                    if self.tileCount < 9600 and math.random() < p then
+                        self:generateGrassTile(x + j, y + i, p * 0.99)
                     end
                 end
             end
@@ -210,13 +210,13 @@ function Ground:generateWaterTiles()
         end
     end
 
-    for y = self.startY + 20, self.endY - 20 do
-        for x = self.startX + 20, self.endX - 20 do
-            if math.random() < 0.02 then
-                self:generatePool(x, y, 0.9)
-            end
-        end
-    end
+    -- for y = self.startY + 20, self.endY - 20 do
+    --     for x = self.startX + 20, self.endX - 20 do
+    --         if math.random() < 0.02 then
+    --             self:generatePool(x, y, 0.9)
+    --         end
+    --     end
+    -- end
 end
 
 function Ground:removePool()
