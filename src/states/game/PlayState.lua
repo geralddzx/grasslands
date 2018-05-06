@@ -2,7 +2,6 @@ PlayState = Class{__includes = BaseState}
 
 function PlayState:init()
     self.ground = Ground()
-    self.water = Water()
     self.air = Air(self.ground)
     self.player = self.air.player
     self.panel = Panel(self.player)
@@ -42,7 +41,6 @@ function PlayState:render()
     love.graphics.translate(math.floor(VIRTUAL_WIDTH / 2 - playerX - 32), 
         math.floor(VIRTUAL_HEIGHT / 2 - playerY))
     
-    self.water:render()
     self.ground:render()
     self.air:render()
     love.graphics.pop()

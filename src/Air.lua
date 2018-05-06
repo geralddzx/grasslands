@@ -3,6 +3,8 @@ Air = Class{}
 
 function Air:init(ground)
     self.ground = ground
+    self.startX, self.startY, self.endX, self.endY =
+        ground.startX, ground.startY, ground.endX, ground.endY
     self.objects = {}
     self.deadObjects = {}
     self.drops = {}
@@ -30,12 +32,12 @@ function Air:render()
     end
 
     local depths = {}
-    for i = 1, 2 * MAP_SIZE do
+    for i = self.startX + self.startY, self.endX + self.endY do
         depths[i] = {}
     end
     
     for k, object in pairs(self.objects) do
-        table.insert(depths[math.floor(object.x + object.y) + 1], object)
+        table.insert(depths[math.floor(object.x + object.y)], object)
     end
 
     for k, depth in pairs(depths) do
@@ -66,7 +68,7 @@ function renderObject(object)
 end
 
 function Air:generatePlayer()
-    self.player = Player(MAP_SIZE / 2, MAP_SIZE / 2)
+    self.player = Player(1, 1)
     table.insert(self.objects, self.player)
 
     self.player.stateMachine = StateMachine {
@@ -79,9 +81,9 @@ function Air:generatePlayer()
 end
 
 function Air:generateTrees()
-    for y = 1, MAP_SIZE do
-        for x = 1, MAP_SIZE do
-            if GRASS[self.ground.tiles[y][x].id] then
+    for y = self.startY, self.endY do
+        for x = self.startX, self.endX do
+            if IsGrassTile(self.ground.tiles[y][x].id) then
                 if math.random() < 0.05 then
                     table.insert(self.objects, Tree(x - 0.5, y - 0.5))
                 end
@@ -91,9 +93,9 @@ function Air:generateTrees()
 end
 
 function Air:generateMonsters()
-    for y = 1, MAP_SIZE do
-        for x = 1, MAP_SIZE do
-            if GRASS[self.ground.tiles[y][x].id] then
+    for y = self.startY, self.endY do
+        for x = self.startX, self.endX do
+            if IsGrassTile(self.ground.tiles[y][x].id) then
                 local def = MONSTER_DEFS[math.random(#MONSTER_DEFS)]
                 if (math.random() < 0.025 / def.level ^ 1) then
                     local monster = Monster(x - 0.5, y - 0.5, def)
@@ -115,10 +117,10 @@ end
 
 function Air:updateIndex()
     self.tiles = {}
-    for y = 1, MAP_SIZE do
-        table.insert(self.tiles, {})
-        for x = 1, MAP_SIZE do
-            table.insert(self.tiles[y], {})
+    for y = self.startY, self.endY do
+        self.tiles[y] = {}
+        for x = self.startX, self.endX do
+            self.tiles[y][x] = {}
         end
     end
 
@@ -158,14 +160,14 @@ end
 -- end
 
 function Air:processCollisions()
-    for y = 1, MAP_SIZE do
-        for x = 1, MAP_SIZE do
+    for y = self.startY, self.endY do
+        for x = self.startX, self.endX do
             local objects = self.tiles[y][x]
             for i = 1, #objects do
                 for j = i + 1, #objects do
                     processCollision(objects[i], objects[j])
                 end
-                if not GRASS[self.ground.tiles[y][x].id] then
+                if not IsGrassTile(self.ground.tiles[y][x].id) then
                     processCollision(objects[i], self.ground.tiles[y][x])
                 end
             end

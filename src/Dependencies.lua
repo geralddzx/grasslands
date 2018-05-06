@@ -9,10 +9,10 @@ require 'src/Animation'
 
 require 'src/monster_defs'
 require 'src/equipment_defs'
+require 'src/wall_defs'
 require 'src/constants'
 
 require 'src/Ground'
-require 'src/Water'
 require 'src/Air'
 require 'src/Panel'
 
@@ -80,6 +80,7 @@ gCursors = {
 
 gFrames = {
     ['grassland_tiles'] = GenerateQuads(gTextures['grassland_tiles'], 64, 32),
+    ['walls'] = GenerateWallQuads(gTextures['grassland_tiles']),
     ['bushes'] = Slice(GenerateQuads(gTextures['grassland_tiles'], 64, 64), 81, 96),
     ['trees'] = GenerateTreeQuads(gTextures['grassland_tiles']),
     -- equipment

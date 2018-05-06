@@ -27,7 +27,13 @@ GRASS = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16}
 
 WATER = {305,306,306,307,308,309,310,311,312,313,314,315,316,317,318,319,320}
 
-MAP_SIZE = 80
-
 MAP_EMPTY = 287
+
+function IsGrassTile(id)
+    return id >= 1 and id <= 16
+end
+
+function IsWaterTile(id)
+    return id >= 305 and id <= 320
+end
 

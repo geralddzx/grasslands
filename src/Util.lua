@@ -80,6 +80,20 @@ function GenerateTreeQuads(atlas)
     return frames
 end
 
+function GenerateWallQuads(atlas)
+    local quads = {}
+    local x, y = 0, 480
+    for i = 1, 2 do
+        for j = 1, 16 do
+            table.insert(quads, love.graphics.newQuad(x, y, 64, 64, atlas:getDimensions()))
+            x = x + 64
+        end
+        y = y + 64
+        x = 0
+    end
+    return quads
+end
+
 function Cartesian(x, y)
     return (x - y) * 32, (x + y) * 16
 end
