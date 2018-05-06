@@ -13,6 +13,7 @@ function Ground:init()
     self:removePool()
     self.walls = {}
     self:generateWalls()
+    self:generateBushes()
     -- self:generateCorners()
 
     -- for y = 1, MAP_SIZE do
@@ -140,6 +141,16 @@ function Ground:render()
             end
         end
     end
+
+    for y = self.startY, self.endY do
+        for x = self.startX, self.endX do
+            if self.tiles[y][x].bush then
+                love.graphics.draw(gTextures['grassland_tiles'], 
+                    self.tiles[y][x].bush, 
+                    Cartesian(x - 1, y - 1))
+            end
+        end
+    end
 end
 
 function Ground:generateGrassTile(x, y, p)
@@ -167,6 +178,22 @@ function Ground:generateGrassTile(x, y, p)
                     if self.tileCount < 9600 and math.random() < p then
                         self:generateGrassTile(x + j, y + i, p * 0.99)
                     end
+                end
+            end
+        end
+    end
+end
+
+function Ground:generateBushes()
+    for y = self.startY, self.endY do
+        for x = self.startX, self.endX do
+            if self.tiles[y][x].grass then
+                if math.random() < 0.1 then
+                    self.tiles[y][x].bush = gFrames['bushes'][math.ceil(math.random() ^ 0.2 * #gFrames['bushes'])]
+                elseif math.random() < 0.15 then
+                    self.tiles[y][x].bush = self.tiles[y][x - 1].bush
+                elseif math.random() < 0.2 then
+                    self.tiles[y][x].bush = self.tiles[y - 1][x].bush
                 end
             end
         end
