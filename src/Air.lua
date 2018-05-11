@@ -77,6 +77,7 @@ function Air:generatePlayer()
         ['move'] = function() return PlayerMoveState(self.player, self) end,
         ['attack'] = function() return PlayerAttackState(self.player, self) end,
         ['hurt'] = function() return PlayerHurtState(self.player, self) end,
+        ['death'] = function() return PlayerDeathState(self.player, self) end,
     }
     self.player:changeState('idle')
 end

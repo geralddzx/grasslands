@@ -29,6 +29,7 @@ require 'src/states/player/PlayerIdleState'
 require 'src/states/player/PlayerMoveState'
 require 'src/states/player/PlayerAttackState'
 require 'src/states/player/PlayerHurtState'
+require 'src/states/player/PlayerDeathState'
 
 require 'src/states/monster/MonsterIdleState'
 require 'src/states/monster/MonsterMoveState'
@@ -142,7 +143,8 @@ gSounds = {
             love.audio.newSource('sounds/player/pain6.wav'),
             love.audio.newSource('sounds/player/painh.wav'),
             love.audio.newSource('sounds/player/paino.wav'),
-        }
+        },
+        death = love.audio.newSource('sounds/player/deathh.wav')
     },
     ['beetle'] = {
         attack = {

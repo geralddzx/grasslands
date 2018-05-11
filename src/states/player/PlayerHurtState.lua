@@ -12,7 +12,11 @@ end
 
 function PlayerHurtState:update(dt)
     if self.player.animation.timesPlayed > 0 then
-        self.player:changeState('idle')
+        if self.player.health > 0 then
+            self.player:changeState('idle')
+        else
+            self.player:changeState('death')
+        end
     end
 end
 
