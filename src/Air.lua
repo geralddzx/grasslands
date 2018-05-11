@@ -69,7 +69,7 @@ function renderObject(object)
 end
 
 function Air:generatePlayer()
-    self.player = Player(1, 1)
+    self.player = Player(1, 1, self)
     table.insert(self.objects, self.player)
 
     self.player.stateMachine = StateMachine {

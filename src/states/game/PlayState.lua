@@ -18,7 +18,7 @@ function PlayState:update(dt)
     self.air:update(dt)
 
     for i = 10, 1, -1 do
-        if love.keyboard.wasPressed(tostring(i)) then
+        if love.keyboard.wasPressed(tostring(i % 10)) then
             local item = self.player.inventory[i]
             if item then
                 local currentEquipment = self.player[item.type]

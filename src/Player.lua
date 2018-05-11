@@ -1,8 +1,10 @@
 Player = Class{__includes = Entity}
 
-function Player:init(x, y)
+function Player:init(x, y, air)
     self.x = x
     self.y = y
+
+    self.air = air
 
     self.level = 1
 
@@ -77,6 +79,12 @@ function Player:gainExp(exp)
 end
 
 function Player:pickup(item)
+    if #self.inventory == 10 then
+        local firstItem = table.remove(self.inventory, 1)
+        firstItem.x, firstItem.y = self.x, self.y
+        table.insert(self.air.drops, firstItem)
+        gSounds['equipment'][item.sound]:play()
+    end
     table.insert(self.inventory, item)
     gSounds['equipment'][item.sound]:play()
 end

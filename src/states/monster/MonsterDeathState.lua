@@ -22,7 +22,7 @@ function MonsterDeathState:update(dt)
 
         table.insert(self.air.deadObjects, self.monster)
         for k, equipmentDef in pairs(EQUIPMENT_DEFS) do
-            if equipmentDef.level > 0 and math.random() < 0.2 / equipmentDef.level then
+            if equipmentDef.level > 0 and math.random() < 1 / equipmentDef.level then
                 table.insert(self.air.drops,
                     Equipment(self.monster.x + math.random() - 0.5, 
                         self.monster.y + math.random() - 0.5, equipmentDef))
