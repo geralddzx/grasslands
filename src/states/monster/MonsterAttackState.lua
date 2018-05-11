@@ -17,6 +17,7 @@ function MonsterAttackState:update(dt)
     local playerX, playerY = self.air.player.x, self.air.player.y
     local dx, dy = playerX - self.monster.x, playerY - self.monster.y
 
+    -- self.monster:changeDirection(Direction(dx, dy))
     self.monster.direction = Direction(dx, dy)
 
     if self.monster.animation.timesPlayed > 0 then

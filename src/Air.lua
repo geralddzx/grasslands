@@ -12,14 +12,14 @@ function Air:init(ground)
     self:generatePlayer()
     self:generateTrees()
     self:generateMonsters()
+    self:generateIndex()
 end
 
 function Air:update(dt)
-    self:updateIndex()
     for k, object in pairs(self.objects) do
         object:update(dt)
     end
-    self:processCollisions()
+    -- self:processCollisions()
 end
 
 function Air:render()
@@ -116,7 +116,7 @@ function Air:generateMonsters()
     end
 end
 
-function Air:updateIndex()
+function Air:generateIndex()
     self.tiles = {}
     for y = self.startY, self.endY do
         self.tiles[y] = {}
@@ -126,12 +126,28 @@ function Air:updateIndex()
     end
 
     for k, object in pairs(self.objects) do
-        for x = math.floor(object.x - object.radius) + 1, math.floor(object.x + object.radius) + 1 do
-            for y = math.floor(object.y - object.radius) + 1, math.floor(object.y + object.radius) + 1 do
-                table.insert(self.tiles[y][x], object)
+        self:addIndex(object)
+    end
+end
+
+function Air:removeIndex(target)
+    for x = math.floor(target.x - target.radius) + 1, math.floor(target.x + target.radius) + 1 do
+        for y = math.floor(target.y - target.radius) + 1, math.floor(target.y + target.radius) + 1 do
+            for i, object in pairs(self.tiles[y][x]) do
+                if object == target then
+                    table.remove(self.tiles[y][x], i)
+                end
             end
         end
     end
+end
+
+function Air:addIndex(target)
+  for x = math.floor(target.x - target.radius) + 1, math.floor(target.x + target.radius) + 1 do
+    for y = math.floor(target.y - target.radius) + 1, math.floor(target.y + target.radius) + 1 do
+        table.insert(self.tiles[y][x], target)
+    end
+  end
 end
 
 -- function Air:processTiles()
@@ -160,62 +176,116 @@ end
 --     end
 -- end
 
-function Air:processCollisions()
-    for y = self.startY, self.endY do
-        for x = self.startX, self.endX do
-            local objects = self.tiles[y][x]
-            for i = 1, #objects do
-                for j = i + 1, #objects do
-                    processCollision(objects[i], objects[j])
+function Air:processCollisions(object)
+    local collided = false
+    for x = math.floor(object.x - object.radius) + 1, math.floor(object.x + object.radius) + 1 do
+        for y = math.floor(object.y - object.radius) + 1, math.floor(object.y + object.radius) + 1 do
+            for k, target in pairs(self.tiles[y][x]) do
+                if self:processCollision(object, target) then
+                    collided = true
                 end
-                if not IsGrassTile(self.ground.tiles[y][x].id) then
-                    processCollision(objects[i], self.ground.tiles[y][x])
-                end
+            end
+            if self:processTileCollision(object, x, y) then
+                collided = true
             end
         end
     end
+    return collided
 end
 
-function processCollision(a, b)
-    if a.x == b.x and a.y == b.y then
-        a.x = a.x + math.random() * 0.1 * (-1) ^ math.random(2)
-        a.y = a.y + math.random() * 0.1 * (-1) ^ math.random(2)
+-- function Air:processCollisions(object)
+--   for y = self.startY, self.endY do
+--       for x = self.startX, self.endX do
+--           local objects = self.tiles[y][x]
+--           for i = 1, #objects do
+--               for j = i + 1, #objects do
+--                   processCollision(objects[i], objects[j])
+--               end
+--               if not IsGrassTile(self.ground.tiles[y][x].id) then
+--                   processCollision(objects[i], self.ground.tiles[y][x])
+--               end
+--           end
+--       end
+--   end
+-- end
+
+function Air:processCollision(object, target)
+    if object.x == target.x and object.y == target.y then
+        object.x = object.x + math.random() * 0.2 - 0.1
+        object.y = object.y + math.random() * 0.2 - 0.1
     end
-
-    local x, y = b.x - a.x, b.y - a.y
-    local touchDistance = a.radius + b.radius
+  
+    local x, y = object.x - target.x, object.y - target.y
+    local touchDistance = object.radius + target.radius
     local distance = Magnitude(x, y)
-
+  
     if distance < touchDistance then
-        a.bumped = true
-        b.bumped = true
-
         local pushDistance = touchDistance - distance
         local pushScale = pushDistance / distance
         local dx, dy = pushScale * x, pushScale * y
 
-        local totalMass = a.mass + b.mass
-        local aPush = b.mass / totalMass
-        local bPush = a.mass / totalMass
-
-        if aPush ~= aPush then
-            aPush = 1
-        end
-
-        if bPush ~= bPush then
-            bPush = 1
-        end
-
-        a.x, a.y = a.x - dx * aPush, a.y - dy * aPush
-        b.x, b.y = b.x + dx * bPush, b.y + dy * bPush
-
-        -- if b.mass > a.mass then
-        --     a.x, a.y = a.x - dx, a.y - dy
-        -- elseif a.mass == b.mass then
-        --     a.x, a.y = a.x - dx * 0.5, a.y - dy * 0.5
-        --     b.x, b.y = b.x + dx * 0.5, b.y + dy * 0.5
-        -- else
-        --     b.x, b.y = b.x + dx, b.y + dy
-        -- end
+        object.x, object.y = object.x + dx, object.y + dy
+        return true
     end
 end
+
+function Air:processTileCollision(object, x, y)
+    if not self.ground.tiles[y][x].grass then
+        local x, y = x - 0.5, y - 0.5
+        local angle = Angle(object.x - x, object.y - y)
+        if angle > 3 * math.pi / 4 or angle < -3 * math.pi / 4 then
+            object.x = x - 0.5 - object.radius
+        elseif angle > math.pi / 4 then
+            object.y = y - 0.5 - object.radius
+        elseif angle > -math.pi / 4 then
+            object.x = x + 0.5 + object.radius
+        else
+            object.y = y + 0.5 + object.radius
+        end
+        return true         
+    end
+end
+
+-- function processCollision(a, b)
+--     if a.x == b.x and a.y == b.y then
+--         a.x = a.x + math.random() * 0.1 * (-1) ^ math.random(2)
+--         a.y = a.y + math.random() * 0.1 * (-1) ^ math.random(2)
+--     end
+
+--     local x, y = b.x - a.x, b.y - a.y
+--     local touchDistance = a.radius + b.radius
+--     local distance = Magnitude(x, y)
+
+--     if distance < touchDistance then
+--         a.bumped = true
+--         b.bumped = true
+
+--         local pushDistance = touchDistance - distance
+--         local pushScale = pushDistance / distance
+--         local dx, dy = pushScale * x, pushScale * y
+
+--         local totalMass = a.mass + b.mass
+--         local aPush = b.mass / totalMass
+--         local bPush = a.mass / totalMass
+
+--         if aPush ~= aPush then
+--             aPush = 1
+--         end
+
+--         if bPush ~= bPush then
+--             bPush = 1
+--         end
+
+--         a.x, a.y = a.x - dx * aPush, a.y - dy * aPush
+--         b.x, b.y = b.x + dx * bPush, b.y + dy * bPush
+
+--         -- if b.mass > a.mass then
+--         --     a.x, a.y = a.x - dx, a.y - dy
+--         -- elseif a.mass == b.mass then
+--         --     a.x, a.y = a.x - dx * 0.5, a.y - dy * 0.5
+--         --     b.x, b.y = b.x + dx * 0.5, b.y + dy * 0.5
+--         -- else
+--         --     b.x, b.y = b.x + dx, b.y + dy
+--         -- end
+--     end
+-- end

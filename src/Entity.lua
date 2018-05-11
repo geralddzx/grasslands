@@ -48,6 +48,25 @@ function Entity:hurt(health)
     end
 end
 
+-- function processCollision(object)
+--   if self.x == object.x and self.y == object.y then
+--       self.x = self.x + math.random() - 0.5
+--       self.y = self.y + math.random() - 0.5
+--   end
+
+--   local x, y = self.x - object.x, self.y - object.y
+--   local touchDistance = self.radius + object.radius
+--   local distance = Magnitude(x, y)
+
+--   if distance < touchDistance then
+--       local pushDistance = touchDistance - distance
+--       local pushScale = pushDistance / distance
+--       local dx, dy = pushScale * x, pushScale * y
+
+--       self.x, self.y = self.x + dx, self.y + dy
+--   end
+-- end
+
 -- function Entity:createAnimations(animations)
 --     local animationsReturned = {}
 

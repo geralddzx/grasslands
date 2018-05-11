@@ -6,6 +6,8 @@ function MonsterIdleState:init(monster, air)
 
     monster.animation = Animation(monster.states['idle']['frames'], 
         monster.states['idle']['rate'], true)
+
+    self.time = os.time()
 end
 
 function MonsterIdleState:update(dt)
@@ -16,14 +18,15 @@ function MonsterIdleState:update(dt)
         self.monster:changeDirection(Direction(dx, dy))
     end
 
-    if Magnitude(dx, dy) < (self.monster.radius + self.air.player.radius) * 2 then
-        self.monster:attack()
-    elseif Magnitude(dx, dy) < 5 or math.random() < dt / 5 then
-        self.monster:changeState('move')
-    elseif self.monster.bumped then
-        self.monster.bumped = false
-        self.monster:changeDirection(math.random(8))
-    elseif math.random() < dt / 5 then
-        self.monster:changeDirection(math.random(8))
+    if os.time() - self.time > 0.5 then
+        if Magnitude(dx, dy) < (self.monster.radius + self.air.player.radius) * 2 then
+            self.monster:attack()
+        elseif Magnitude(dx, dy) < 5 then
+            self.monster:changeState('move')
+        elseif math.random() < dt / 5 then
+            self.monster:changeState('move')
+        elseif math.random() < dt / 5 then
+            self.monster:changeDirection(math.random(8))
+        end
     end
 end

@@ -12,11 +12,14 @@ end
 
 function MonsterDeathState:update(dt)
     if self.monster.animation.timesPlayed > 0 then
+        self.air:removeIndex(self.monster)
+
         for i, object in pairs(self.air.objects) do
             if object == self.monster then
                 table.remove(self.air.objects, i)
             end
         end
+
         table.insert(self.air.deadObjects, self.monster)
         for k, equipmentDef in pairs(EQUIPMENT_DEFS) do
             if equipmentDef.level > 0 and math.random() < 0.2 / equipmentDef.level then
