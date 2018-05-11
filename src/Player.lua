@@ -5,13 +5,16 @@ function Player:init(x, y)
     self.y = y
 
     self.level = 1
-    self.health = 100
-    self.maxHealth = 100
+
+    self.baseAttack = math.random(100)
+    self.baseDefense = math.random(100)
+    self.maxHealth = math.random(100) + 50
+    self.health = self.maxHealth
 
     self.exp = 0
     self.maxExp = 100
 
-    self.direction = 1
+    self.direction = math.random(8)
 
     self.width = 1
     self.height = 1
@@ -51,12 +54,26 @@ function Player:graphics()
     return graphics
 end
 
-function Player:stats()
-    return {
-        level = self.level,
-        attack = 100,
-        defense = 100,
-    }
+function Player:totalAttack()
+    return self.baseAttack + self.weapon.attack
+end
+
+function Player:totalDefense()
+    return self.baseDefense + self.armor.defense + (self.shield and self.shield.defense or 0)
+end
+
+
+function Player:gainExp(exp)
+    self.exp = self.exp + exp
+    if self.exp > self.maxExp then
+        self.level = self.level + 1
+        self.exp = self.exp - self.maxExp
+        self.maxExp = self.maxExp * 1.2
+        self.baseAttack = self.baseAttack + math.random(10)
+        self.baseAttack = self.baseAttack + math.random(10)
+        self.maxHealth = self.maxHealth + math.random(20)
+        self.health = self.maxHealth
+    end
 end
 
 function Player:pickup(item)

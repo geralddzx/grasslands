@@ -34,10 +34,12 @@ function Panel:renderStatus()
     y = VIRTUAL_HEIGHT - 16 - 8
     local x = 206 + 64
     local width = (VIRTUAL_WIDTH - x) / 3
-    for stat, value in pairs(self.player:stats()) do
-        love.graphics.printf(stat .. ': ' .. value, x - 32, y, width, 'right')
-        x = x + width
-    end
+    love.graphics.printf('Level: ' .. self.player.level, x - 32, y, width, 'right')
+    x = x + width
+    love.graphics.printf('Attack: ' .. self.player:totalAttack(), x - 32, y, width, 'right')
+    x = x + width
+    love.graphics.printf('Defense: ' .. self.player:totalDefense(), x - 32, y, width, 'right')
+    x = x + width
     
 end
 

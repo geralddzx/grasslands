@@ -7,7 +7,7 @@ function MonsterDeathState:init(monster, air)
 
     monster.animation = Animation(monster.states['death']['frames'], 
         monster.states['death']['rate'], false) 
-    self.air.player.exp = self.air.player.exp + 5 * self.monster.level / self.air.player.level
+    self.air.player:gainExp(5 * self.monster.level / self.air.player.level)
 end
 
 function MonsterDeathState:update(dt)
