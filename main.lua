@@ -9,22 +9,21 @@ function love.load()
     love.mouse.setVisible(false)
     -- love.mouse.setGrabbed(true)
 
-    love.graphics.setFont(gFonts['small'])
-
     math.randomseed(os.time())
     love.window.setTitle('Grassland')
     love.graphics.setDefaultFilter('linear', 'linear')
 
     push:setupScreen(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, WINDOW_WIDTH, WINDOW_HEIGHT, {
-        fullscreen = false,
+        fullscreen = true,
         vsync = true,
         resizable = true
     })
 
     gStateMachine = StateMachine {
         ['play'] = function() return PlayState() end,
+        ['start'] = function() return StartState() end,
     }
-    gStateMachine:change('play')
+    gStateMachine:change('start')
 
     gSounds['music']:setLooping(true)
     gSounds['music']:play()
@@ -60,8 +59,8 @@ function love.draw()
 
     gStateMachine:render()
 
-    love.graphics.setColor(0, 255, 0, 255)
-    love.graphics.print('FPS: ' .. tostring(love.timer.getFPS()), 10, 10)
+    -- love.graphics.setColor(0, 255, 0, 255)
+    -- love.graphics.print('FPS: ' .. tostring(love.timer.getFPS()), 10, 10)
     
     push:finish()
 

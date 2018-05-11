@@ -24,6 +24,7 @@ require 'src/Equipment'
 
 require 'src/states/BaseState'
 require 'src/states/game/PlayState'
+require 'src/states/game/StartState'
 
 require 'src/states/player/PlayerIdleState'
 require 'src/states/player/PlayerMoveState'
@@ -191,4 +192,6 @@ gSounds = {
 
 gFonts = {
     ['small'] = love.graphics.newFont('fonts/knights-quest.ttf', 16),
+    ['large'] = love.graphics.newFont('fonts/knights-quest.ttf', 32),
+    ['huge'] = love.graphics.newFont('fonts/knights-quest.ttf', 48)
 }

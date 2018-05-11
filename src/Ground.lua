@@ -176,7 +176,7 @@ function Ground:generateGrassTile(x, y, p)
             if math.abs(i + j) == 1 then
                 if not self.tiles[y + i] or not self.tiles[y + i][x + j] then
                     if self.tileCount < 6400 and math.random() < p then
-                        self:generateGrassTile(x + j, y + i, p * 0.995)
+                        self:generateGrassTile(x + j, y + i, p * 0.99)
                     end
                 end
             end

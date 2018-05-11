@@ -10,6 +10,8 @@ function Panel:render()
 end
 
 function Panel:renderStatus()
+    love.graphics.setFont(gFonts['small'])
+    
     local y = VIRTUAL_HEIGHT - 32
 
     for i = 1, VIRTUAL_WIDTH / 64 do
