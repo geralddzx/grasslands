@@ -7,7 +7,7 @@ function MonsterDeathState:init(monster, air)
 
     monster.animation = Animation(monster.states['death']['frames'], 
         monster.states['death']['rate'], false) 
-    self.air.player:gainExp(5 * self.monster.level / self.air.player.level)
+    self.air.player:gainExp(50 * (self.monster.level / self.air.player.level)^0.5)
 end
 
 function MonsterDeathState:update(dt)
@@ -22,7 +22,8 @@ function MonsterDeathState:update(dt)
 
         table.insert(self.air.deadObjects, self.monster)
         for k, equipmentDef in pairs(EQUIPMENT_DEFS) do
-            if equipmentDef.level > 0 and math.random() < 1 / equipmentDef.level then
+            if equipmentDef.level <= self.air.player.level
+                and math.random() < 0.2 / equipmentDef.level then
                 table.insert(self.air.drops,
                     Equipment(self.monster.x + math.random() - 0.5, 
                         self.monster.y + math.random() - 0.5, equipmentDef))

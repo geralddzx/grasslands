@@ -31,7 +31,7 @@ function PlayerAttackState:init(player, air)
                         (hitAngle - monsterAngle) % (math.pi * 2))
                     if angleDiff < math.pi / 4 and monsterDistance < hitRange then
                         hits[object] = true
-                        object:hurt(10)
+                        object:hurt(player:totalAttack())
                     end
                 end
             end

@@ -10,7 +10,7 @@ function MonsterAttackState:init(monster, air)
     local sounds = gSounds[monster.sounds]['attack']
     sounds[math.random(#sounds)]:play()
 
-    self.air.player:hurt(10)
+    self.air.player:hurt(monster.level ^ 0.5 * math.random(200))
 end
 
 function MonsterAttackState:update(dt)

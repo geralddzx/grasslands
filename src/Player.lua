@@ -72,7 +72,7 @@ function Player:gainExp(exp)
         self.exp = self.exp - self.maxExp
         self.maxExp = self.maxExp * 1.2
         self.baseAttack = self.baseAttack + math.random(10)
-        self.baseAttack = self.baseAttack + math.random(10)
+        self.baseDefense = self.baseDefense + math.random(10)
         self.maxHealth = self.maxHealth + math.random(20)
         self.health = self.maxHealth
     end

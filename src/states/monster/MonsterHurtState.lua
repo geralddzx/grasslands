@@ -21,6 +21,6 @@ function MonsterHurtState:update(dt)
     end
 end
 
-function MonsterHurtState:enter(health)
-    self.monster.health = self.monster.health - health
+function MonsterHurtState:enter(damage)
+    self.monster.health = self.monster.health - damage
 end

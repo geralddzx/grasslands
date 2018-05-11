@@ -42,9 +42,9 @@ function Entity:attack()
     end
 end
 
-function Entity:hurt(health)
+function Entity:hurt(damage)
     if not self.dead then
-        self:changeState('hurt', health)
+        self:changeState('hurt', damage)
     end
 end
 
