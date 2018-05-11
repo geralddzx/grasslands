@@ -10,9 +10,7 @@ function PlayerIdleState:update(dt)
     if love.mouse.isDown(1) then
         self.player:changeState('move')
     elseif love.mouse.keysReleased[2] and not self:processPickup() then
-        if self.player:attack() then
-            self.player.direction = love.mousedirection()
-        end
+        self.player:attack()
     end
 end
 
