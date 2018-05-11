@@ -41,7 +41,8 @@ function MonsterMoveState:update(dt)
 
     if self.air:processCollisions(self.monster) then
         if Magnitude(playerX, playerY) > 5 then
-            self.monster:changeState('idle')
+            -- self.monster:changeState('idle')
+            self.monster:changeDirection(math.random(8))
         end
     elseif Magnitude(playerX, playerY) > 5 then
         if math.random() < dt / 5 then
