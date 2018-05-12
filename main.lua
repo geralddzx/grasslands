@@ -7,7 +7,7 @@ require 'src/Dependencies'
 -- and for the grassland tiles
 -- https://opengameart.org/content/grassland-tileset
 -- also thanks to multiple authors from opengameart for
--- sound effects and music
+-- sound effects, music, monsters etc.
 
 function love.load()
     -- http://nova-fusion.com/2012/09/20/custom-cursors-in-love2d/
