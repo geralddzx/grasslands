@@ -22,5 +22,6 @@ function MonsterHurtState:update(dt)
 end
 
 function MonsterHurtState:enter(damage)
+    -- take damage when entering hurt state
     self.monster.health = self.monster.health - damage
 end
