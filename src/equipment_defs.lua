@@ -106,6 +106,7 @@ EQUIPMENT_DEFS = {
     }
 }
 
+-- generate icon quads for equipment to be rendered as inventory icons
 (function ()
     for k, def in pairs(EQUIPMENT_DEFS) do
         local offsetX, offsetY = Cartesian(def.offsetX, def.offsetY)

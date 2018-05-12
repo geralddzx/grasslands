@@ -6,6 +6,8 @@
 
     Author: Colton Ogden
     cogden@cs50.harvard.edu
+
+    with some modifications from geralddzx
 ]]
 
 Animation = Class{}
