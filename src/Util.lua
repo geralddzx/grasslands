@@ -34,6 +34,7 @@ function GenerateQuads(atlas, tilewidth, tileheight)
     return spritesheet
 end
 
+-- slices array, from stackoverflow
 function Slice(t, from, to)
     local result = {}
     for k = from, to do
@@ -94,10 +95,14 @@ function GenerateWallQuads(atlas)
     return quads
 end
 
+-- convert isometric coordinates to cartesian
 function Cartesian(x, y)
     return (x - y) * 32, (x + y) * 16
 end
 
+-- get quads in two dimensional array, making it easier to index into equipment
+-- and monsters since these have two dimensions, one dimension for direction,
+-- another for state and frame
 function Generate2DQuads(atlas, tilewidth, tileheight)
     local sheetWidth = atlas:getWidth() / tilewidth
     local sheetHeight = atlas:getHeight() / tileheight
@@ -117,6 +122,7 @@ function Generate2DQuads(atlas, tilewidth, tileheight)
     return spritesheet
 end
 
+-- convert vector to isometric directions 1 to 8
 function Direction(x, y)
     local angle = Angle(x, y)
     local scaledAngle = angle / (2 * math.pi) * 8
@@ -124,29 +130,15 @@ function Direction(x, y)
     return (-nearestDirection - 3) % 8 + 1
 end
 
+-- get vector from isometric direction
 function Vector(direction)
     local angle = -direction * math.pi / 4 + math.pi * 3 / 2
     return math.cos(angle), -math.sin(angle)
-
-    -- if direction == 1 then
-    --     return -1, -1
-    -- elseif direction == 2 then
-    --     return -1, 0
-    -- elseif direction == 2 then
-    --     return -1, 1
-    -- elseif direction == 2 then
-    --     return -1, 0
-    -- elseif direction == 2 then
-    --     return -1, 0
 end
 
 function Angle(x, y)
     return math.atan2(-y, x)
 end
-
--- function Distance(x1, y1, x2, y2)
---     return math.sqrt(x2 - x1)^2 + (y2 - y1)^2)
--- end
 
 function Magnitude(x, y)
     return math.sqrt(x^2 + y^2)

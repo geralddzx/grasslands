@@ -13,6 +13,8 @@ function Tree:init(x, y)
     self.radius = 0.25
 end
 
+-- return graphics to air layer instead of drawing because the air layer needs to
+-- sort objects based on depth before drawing them
 function Tree:graphics()
     return {{gTextures['grassland_tiles'], self.frame}}
 end

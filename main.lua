@@ -1,10 +1,15 @@
 require 'src/Dependencies'
 
 -- all assets obtained from opengameart.org and www.dafont.com
+-- special thanks to CC-BY for the graphics from opengameart
+-- especially for the isometric hero sprites
+-- https://opengameart.org/content/isometric-hero-and-heroine
+-- and for the grassland tiles
+-- https://opengameart.org/content/grassland-tileset
+-- also thanks to multiple authors from opengameart for
+-- sound effects and music
 
 function love.load()
-    if arg[#arg] == "-debug" then require("mobdebug").start() end
-
     -- http://nova-fusion.com/2012/09/20/custom-cursors-in-love2d/
     love.mouse.setVisible(false)
     -- love.mouse.setGrabbed(true)
@@ -58,9 +63,6 @@ function love.draw()
     push:start()
 
     gStateMachine:render()
-
-    -- love.graphics.setColor(0, 255, 0, 255)
-    -- love.graphics.print('FPS: ' .. tostring(love.timer.getFPS()), 10, 10)
     
     push:finish()
 

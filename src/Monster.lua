@@ -32,18 +32,10 @@ function Monster:graphics()
 end
 
 function Monster:changeDirection(direction)
+    -- don't allow changing direction to fast, causing blurry effect
     self.lastRedirect = self.lastRedirect or 0
     if os.time() - self.lastRedirect > 0.05 then
         self.direction = direction
         self.lastRedirect = os.time()
     end
 end
-
--- function Monster:changeState(name, params)
---     self.lastChange = self.lastChange or 0
-
---     if os.time() - self.lastChange > 0.05 then
---         self.stateMachine:change(name, params)
---         self.lastChange = os.time()
---     end
--- end
