@@ -7,6 +7,7 @@ function PlayerDeathState:init(player, air)
     player.animation = Animation({19, 20, 21, 22, 23, 24}, 0.25, false)
     gSounds['player']['death']:play()
 
+    -- make sure monster doesn't hurt the player if this is set to true
     self.player.dead = true
 end
 

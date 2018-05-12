@@ -21,5 +21,6 @@ function PlayerHurtState:update(dt)
 end
 
 function PlayerHurtState:enter(damage)
+    -- damage player based on player defense
     self.player.health = self.player.health - 10 * damage / self.player:totalDefense()
 end
